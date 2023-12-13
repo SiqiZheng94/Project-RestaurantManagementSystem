@@ -1,10 +1,7 @@
-name: SonarCloud-backend
+name: SonarCloud-Maven-backend
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build and analyze
