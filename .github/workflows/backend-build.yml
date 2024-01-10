@@ -1,11 +1,10 @@
-name: SonarCloud-Maven-backend
+name: SonarCloud-backend
 on:
   push:
     branches:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
-
 jobs:
   build:
     name: Build and analyze
@@ -35,4 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=siqizheng94_fullstack-project-setup-backend --file backend/pom.xml
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=siqizheng94_siqizheng-OrderingSystem-backend --file backend/pom.xml
