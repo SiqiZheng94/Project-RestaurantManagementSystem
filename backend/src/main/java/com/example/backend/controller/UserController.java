@@ -33,4 +33,8 @@ public class UserController {
     public Order creatOrder() {
         return service.creatOrder();
     }
+    @DeleteMapping("/pay")
+    public void pay(){
+        service.pay();
+    }
 }

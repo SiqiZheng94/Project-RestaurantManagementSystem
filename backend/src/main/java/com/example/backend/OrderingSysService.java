@@ -61,4 +61,8 @@ public class OrderingSysService {
        );
        return orderRepo.save(newOrder);
     }
+
+    public void pay() {
+       dishInCartRepo.deleteAll();
+    }
 }
