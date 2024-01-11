@@ -1,5 +1,7 @@
 package com.example.backend.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.With;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,3 +13,14 @@ public record DishInCart(
         int amount
 ) {
 }
+//@Data
+//@AllArgsConstructor
+//public class DishInCart {
+//    private String _id;
+//    private int dishId;
+//    private int amount;
+//
+//    public int calculateTotalPrice(int dishPrice) {
+//        return dishPrice * amount;
+//    }
+//}

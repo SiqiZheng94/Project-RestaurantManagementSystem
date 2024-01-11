@@ -63,6 +63,9 @@ public class OrderingSysService {
     }
 
     public void pay() {
+
+
+
        dishInCartRepo.deleteAll();
     }
 }

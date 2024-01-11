@@ -21,11 +21,11 @@ public class UserController {
     public List<Dish> getAllDishes() {
         return service.getAllDishes();
     }
-    @PostMapping("/add")
-    public DishInCart AddDishInCart (@RequestBody DishInCartDTO dishInCartDTO){
+    @PostMapping("/shoppingCart/add")
+    public DishInCart addDishInCart (@RequestBody DishInCartDTO dishInCartDTO){
         return service.addDishInCart(dishInCartDTO);
     }
-    @GetMapping("/cart")
+    @GetMapping("/shoppingCart")
     public List<DishInCart> getAllDishesInCart(){
         return service.getAllDishesInCart();
     }
