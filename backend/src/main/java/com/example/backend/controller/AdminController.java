@@ -1,5 +1,6 @@
-package com.example.backend;
+package com.example.backend.controller;
 
+import com.example.backend.OrderingSysService;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.entity.Dish;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
-public class OrderingSysController {
+public class AdminController {
     private final OrderingSysService service;
 
     @GetMapping

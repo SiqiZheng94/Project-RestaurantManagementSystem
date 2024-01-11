@@ -10,13 +10,12 @@ import java.math.BigDecimal;
 @Document("dishes")
 public record Dish(
         String _id,
-        int dishid,
         DishCategoryEnum category,
         String name,
         String description,
         BigDecimal price,
         boolean vegetarian,
-        boolean availability
-
+        boolean availability,
+        int dishId
 ) {
 }
