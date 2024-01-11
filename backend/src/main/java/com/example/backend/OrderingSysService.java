@@ -27,14 +27,12 @@ public class OrderingSysService {
     public Dish saveNewDish(DishDTO dishDto) {
        Dish newDish = new Dish(
                null,
-
                dishDto.getCategory(),
                dishDto.getName(),
                dishDto.getDescription(),
                dishDto.getPrice(),
                dishDto.isVegetarian(),
-               false,
-               4
+               true
        );
        return dishRepo.save(newDish);
     }
@@ -63,9 +61,6 @@ public class OrderingSysService {
     }
 
     public void pay() {
-
-
-
        dishInCartRepo.deleteAll();
     }
 }
