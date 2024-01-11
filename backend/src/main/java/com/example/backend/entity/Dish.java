@@ -15,6 +15,7 @@ public record Dish(
         String description,
         BigDecimal price,
         boolean vegetarian,
-        boolean availability
+        boolean availability,
+        int dishId
 ) {
 }

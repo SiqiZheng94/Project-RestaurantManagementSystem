@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,18 +33,27 @@ public class OrderingSysService {
                dishDto.getDescription(),
                dishDto.getPrice(),
                dishDto.isVegetarian(),
-               true
+               true,
+               dishRepo.findAll().size()+1
        );
        return dishRepo.save(newDish);
     }
 
-    public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
-       DishInCart dishInChat = new DishInCart(
-               null,
-               dishInCartDTO.getDishId(),
-               dishInCartDTO.getAmount()
-       );
-       return dishInCartRepo.save(dishInChat);
+    public void addDishInCart(DishInCartDTO dishInCartDTO) {
+        List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
+       if(!optionalDishInCart.isEmpty())
+        {
+            optionalDishInCart.get(0).setAmount(optionalDishInCart.get(0).getAmount()+dishInCartDTO.getAmount());
+            dishInCartRepo.save(optionalDishInCart.get(0));
+        } else {
+           DishInCart dishInChat = new DishInCart(
+                   null,
+                   dishInCartDTO.getDishId(),
+                   dishInCartDTO.getAmount(),
+                   dishInCartDTO.getPrice()
+           );
+           dishInCartRepo.save(dishInChat);
+       }
     }
 
     public List<DishInCart> getAllDishesInCart() {
