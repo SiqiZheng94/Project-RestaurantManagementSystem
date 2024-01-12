@@ -20,7 +20,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 public class UserControllerTest {
     private final String BASE_URL = "/api/user";
     @Autowired
@@ -44,6 +44,19 @@ public class UserControllerTest {
        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
                .andExpect(MockMvcResultMatchers.status().isOk())
                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(dishInCartJson))));
+    }
+    @Test
+    void buy_shouldEmptyChart () throws Exception
+    {
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL+"/buy"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                        []
+                    """
+                ));
     }
 }
 
