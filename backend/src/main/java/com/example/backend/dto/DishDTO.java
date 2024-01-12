@@ -8,11 +8,9 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 public class DishDTO {
-
     private DishCategoryEnum category;
     private String name;
     private String description;
     private float price;
     private boolean vegetarian;
-    private boolean availability;
 }
