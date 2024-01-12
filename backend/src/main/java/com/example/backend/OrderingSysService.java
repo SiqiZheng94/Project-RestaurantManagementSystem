@@ -39,7 +39,7 @@ public class OrderingSysService {
        return dishRepo.save(newDish);
     }
 
-    public void addDishInCart(DishInCartDTO dishInCartDTO) {
+    public void addDishToCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
        if(!optionalDishInCart.isEmpty())
         {
