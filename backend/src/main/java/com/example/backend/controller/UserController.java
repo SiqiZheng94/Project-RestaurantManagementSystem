@@ -33,8 +33,8 @@ public class UserController {
     public Order creatOrder() {
         return service.creatOrder();
     }
-    @DeleteMapping("/pay")
+    @DeleteMapping("/buy")
     public void pay(){
-        service.pay();
+        service.buy();
     }
 }

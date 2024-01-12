@@ -21,7 +21,4 @@ public class DishInCart {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    //    public int calculateTotalPrice(int dishPrice) {
-//        return dishPrice * amount;
-//    }
 }
