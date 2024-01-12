@@ -22,8 +22,8 @@ public class UserController {
         return service.getAllDishes();
     }
     @PostMapping("/shoppingCart/add")
-    public void addDishInCart (@RequestBody DishInCartDTO dishInCartDTO){
-        service.addDishInCart(dishInCartDTO);
+    public DishInCart addDishInCart (@RequestBody DishInCartDTO dishInCartDTO){
+        return service.addDishInCart(dishInCartDTO);
     }
     @GetMapping("/shoppingCart")
     public List<DishInCart> getAllDishesInCart(){

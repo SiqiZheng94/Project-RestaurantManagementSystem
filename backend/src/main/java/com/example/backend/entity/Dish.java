@@ -13,7 +13,7 @@ public record Dish(
         DishCategoryEnum category,
         String name,
         String description,
-        BigDecimal price,
+        float price,
         boolean vegetarian,
         boolean availability,
         int dishId

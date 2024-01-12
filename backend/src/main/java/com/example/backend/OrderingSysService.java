@@ -39,12 +39,12 @@ public class OrderingSysService {
        return dishRepo.save(newDish);
     }
 
-    public void addDishInCart(DishInCartDTO dishInCartDTO) {
+    public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
        if(!optionalDishInCart.isEmpty())
         {
             optionalDishInCart.get(0).setAmount(optionalDishInCart.get(0).getAmount()+dishInCartDTO.getAmount());
-            dishInCartRepo.save(optionalDishInCart.get(0));
+            return dishInCartRepo.save(optionalDishInCart.get(0));
         } else {
            DishInCart dishInChat = new DishInCart(
                    null,
@@ -52,7 +52,7 @@ public class OrderingSysService {
                    dishInCartDTO.getAmount(),
                    dishInCartDTO.getPrice()
            );
-           dishInCartRepo.save(dishInChat);
+           return dishInCartRepo.save(dishInChat);
        }
     }
 

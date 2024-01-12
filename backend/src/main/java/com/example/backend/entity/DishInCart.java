@@ -16,7 +16,7 @@ public class DishInCart {
     private String _id;
     private int dishId;
     private int amount;
-    BigDecimal price;
+    float price;
 
     public void setAmount(int amount) {
         this.amount = amount;

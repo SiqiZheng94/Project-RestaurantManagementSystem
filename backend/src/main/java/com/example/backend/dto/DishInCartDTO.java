@@ -10,5 +10,5 @@ import java.math.BigDecimal;
 public class DishInCartDTO {
     int dishId;
     int amount;
-    BigDecimal price;
+    float price;
 }
