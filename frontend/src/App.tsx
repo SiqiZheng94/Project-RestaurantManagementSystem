@@ -13,10 +13,12 @@ function App() {
   return (
     <div className={"App"}>
       <AppHeader />
-      <div className="SideMenuAndPageContent">
+      <Space className={"SideMenuAndPageContent"}>
+      {/*<div className="SideMenuAndPageContent">*/}
         <SideMenu></SideMenu>
         <PageContent></PageContent>
-      </div>
+      {/*</div>*/}
+      </Space>
       <AppFooter />
     </div>
   )
