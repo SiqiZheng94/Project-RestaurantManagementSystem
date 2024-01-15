@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllDishes } from "../API";
 import { Space, Table, Tag, Modal, Form, Input, Button, Switch } from "antd";
-import { Dish } from "../../entity/Dish.ts";
+import { Dish } from "../entity/Dish.ts";
 
 function Dishes() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
