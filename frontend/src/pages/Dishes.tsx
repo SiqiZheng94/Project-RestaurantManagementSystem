@@ -1,89 +1,15 @@
-// import {useEffect, useState} from "react";
-// import {getOrders} from "../API";
-// import {Space, Table, Tag} from "antd";
-// import {Dish} from "../../entity/Dish.ts";
-//
-//
-// function Dishes() {
-//     const [dataSource, setDataSource] = useState([]);
-//     const [loading, setLoading] = useState(false);
-//
-//     useEffect(() => {
-//         setLoading(true);
-//         getOrders().then((res)=>{
-//             setDataSource(res);
-//             setLoading(false);
-//         })
-//     }, []);
-//     return (
-//         <Table
-//             columns={[
-//                 {
-//                     title: "ID",
-//                     dataIndex: "dishId",
-//                 },
-//                 {
-//                     title: "Category",
-//                     dataIndex: "category",
-//                 },
-//                 {
-//                     title: "Name",
-//                     dataIndex: "name",
-//                 },
-//                 {
-//                     title: "Description",
-//                     dataIndex: "description",
-//                 },
-//                 {
-//                     title: "Price",
-//                     dataIndex: "price",
-//                 },
-//                 {
-//                     title: "Availability",
-//                     dataIndex: "availability",
-//                     render: (availability) => (
-//                         <>
-//                             {availability ? (
-//                                 <Tag color={"green"}>YES</Tag>
-//                             ) : (
-//                                 <Tag color={"red"}>NO</Tag>
-//                             )}
-//                         </>
-//                     ),
-//                 },
-//                 {
-//                     title: "Action",
-//                     render: (text, record) => (
-//                         <Space size="middle">
-//                             <a onClick={() => showEditModal(record)}>Edit</a>
-//                             <a>Delete</a>
-//                         </Space>
-//                     ),
-//                 },
-//             ]}
-//
-//             loading={loading}
-//             dataSource={dataSource.map((dish:Dish) => ({
-//                 ...dish,
-//                 key: dish.dishId.toString(), // Assigning 'id' as the unique key
-//             }))}
-//         >
-//         </Table>
-//     )
-// }
-// export default Dishes;
-import React, { useEffect, useState } from "react";
-import { getOrders } from "../API";
-import { Space, Table, Tag, Modal, Form, Input, Button } from "antd";
+import { useEffect, useState } from "react";
+import { getAllDishes } from "../API";
+import { Space, Table, Tag, Modal, Form, Input, Button, Switch } from "antd";
 import { Dish } from "../../entity/Dish.ts";
 
 function Dishes() {
-    const [dataSource, setDataSource] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [editingDish, setEditingDish] = useState(null);
+    const [dataSource, setDataSource] = useState<Dish[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [editingDish, setEditingDish] = useState<Dish | null>(null);
 
-    const showEditModal = (dish) => {
+    const showEditModal = (dish: Dish) => {
         setEditingDish(dish);
         setModalVisible(true);
     };
@@ -95,7 +21,7 @@ function Dishes() {
 
     useEffect(() => {
         setLoading(true);
-        getOrders().then((res) => {
+        getAllDishes().then((res: Dish[]) => {
             setDataSource(res);
             setLoading(false);
         });
@@ -125,7 +51,7 @@ function Dishes() {
         {
             title: "Availability",
             dataIndex: "availability",
-            render: (availability) => (
+            render: (availability: boolean) => (
                 <>
                     {availability ? (
                         <Tag color={"green"}>YES</Tag>
@@ -137,7 +63,7 @@ function Dishes() {
         },
         {
             title: "Action",
-            render: (text, record) => (
+            render: (text: string, record: Dish) => (
                 <Space size="middle">
                     <a onClick={() => showEditModal(record)}>Edit</a>
                     <a>Delete</a>
@@ -151,7 +77,7 @@ function Dishes() {
             <Table
                 columns={columns}
                 loading={loading}
-                dataSource={dataSource.map((dish: Dish) => ({
+                dataSource={dataSource.map((dish) => ({
                     ...dish,
                     key: dish.dishId.toString(),
                 }))}
@@ -159,7 +85,7 @@ function Dishes() {
 
             <Modal
                 title="Edit Dish"
-                visible={modalVisible}
+                open={modalVisible}
                 onCancel={handleModalCancel}
                 footer={null}
             >
@@ -168,7 +94,7 @@ function Dishes() {
                     onCancel={handleModalCancel}
                     onFinish={() => {
                         // Handle form submission and update the dish data
-                        // You can add your logic here
+                        // add your logic here
                         handleModalCancel();
                     }}
                 />
@@ -177,7 +103,7 @@ function Dishes() {
     );
 }
 
-function DishEditForm({ dish, onCancel, onFinish }) {
+function DishEditForm({ dish, onCancel, onFinish }: any) {
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -215,6 +141,32 @@ function DishEditForm({ dish, onCancel, onFinish }) {
             </Form.Item>
 
             <Form.Item
+                name="category"
+                label="Category"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please enter the category",
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="description"
+                label="Description"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please enter the description",
+                    },
+                ]}
+            >
+                <Input.TextArea />
+            </Form.Item>
+
+            <Form.Item
                 name="price"
                 label="Price"
                 rules={[
@@ -222,14 +174,22 @@ function DishEditForm({ dish, onCancel, onFinish }) {
                         required: true,
                         type: "number",
                         min: 0,
+                        // Convert input values to floating point numbers
+                        transform: (value) => parseFloat(value),
                         message: "Please enter a valid price",
                     },
                 ]}
             >
-                <Input type="number" />
+                <Input type="number" step="0.01" />
             </Form.Item>
 
-            {/* Add more form fields for editing other properties of the dish */}
+            <Form.Item name="vegetarian" label="Vegetarian" valuePropName="checked">
+                <Switch />
+            </Form.Item>
+
+            <Form.Item name="availability" label="Availability" valuePropName="checked">
+                <Switch />
+            </Form.Item>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit">

@@ -19,7 +19,7 @@ public class AdminController {
         return service.getAllDishes();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/dish/add")
     public Dish addNewDish(@RequestBody DishDTO dishDto) {
         return service.saveNewDish(dishDto);
     }

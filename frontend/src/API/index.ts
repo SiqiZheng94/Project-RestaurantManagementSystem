@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getOrders= ()=>{
+export const getAllDishes= ()=>{
     return axios.get("api/admin")
         .then(response=>
             response.data
