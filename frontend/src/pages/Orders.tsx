@@ -1,10 +1,10 @@
 import {Typography} from "antd";
 
-function Customers () {
+function Orders () {
     return (
         <div>
-            <Typography.Text>Customers</Typography.Text>
+            <Typography.Title level={4}>Orders</Typography.Title>
         </div>
     )
 }
-export default Customers
+export default Orders

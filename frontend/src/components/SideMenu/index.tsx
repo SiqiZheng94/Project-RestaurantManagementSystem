@@ -5,8 +5,7 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SideMenu() {
     const navigate = useNavigate();
@@ -37,6 +36,11 @@ function SideMenu() {
                         label: "Customers",
                         icon: <UserOutlined />,
                         key: '/customers',
+                    },
+                    {
+                        label: "Dishes",
+                        icon: <ShopOutlined />,
+                        key: '/dishes',
                     }
                 ]
 
