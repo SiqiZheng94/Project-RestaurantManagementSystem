@@ -14,10 +14,8 @@ function App() {
     <div className={"App"}>
       <AppHeader />
       <Space className={"SideMenuAndPageContent"}>
-      {/*<div className="SideMenuAndPageContent">*/}
         <SideMenu></SideMenu>
         <PageContent></PageContent>
-      {/*</div>*/}
       </Space>
       <AppFooter />
     </div>
