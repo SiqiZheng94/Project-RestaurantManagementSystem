@@ -5,7 +5,6 @@ function PageContent() {
         <div className="PageContent">
             <AppRoutes />
         </div>
-
     );
 }
 export default PageContent;
