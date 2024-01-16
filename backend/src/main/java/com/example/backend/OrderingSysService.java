@@ -39,6 +39,14 @@ public class OrderingSysService {
        return dishRepo.save(newDish);
     }
 
+    public Dish UpdateThisDish(Dish dish) {
+       return dishRepo.save(dish);
+    }
+
+    public void deleteThisDish(String id) {
+       dishRepo.deleteById(id);
+    }
+
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
        if(!optionalDishInCart.isEmpty())
@@ -73,4 +81,7 @@ public class OrderingSysService {
     public void buy() {
        dishInCartRepo.deleteAll();
     }
+
+
+
 }

@@ -20,7 +20,17 @@ public class AdminController {
     }
 
     @PostMapping("/dish/add")
-    public Dish addNewDish(@RequestBody DishDTO dishDto) {
+    public Dish addANewDish(@RequestBody DishDTO dishDto) {
         return service.saveNewDish(dishDto);
+    }
+
+    @PutMapping("/dish/update")
+    public Dish updateThisDish(@RequestBody Dish dish) {
+        return service.UpdateThisDish(dish);
+    }
+
+    @DeleteMapping("/dish/delete/{id}")
+    public void deleteThisDish(@PathVariable String id){
+        service.deleteThisDish(id);
     }
 }
