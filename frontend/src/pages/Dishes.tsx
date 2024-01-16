@@ -65,10 +65,7 @@ function Dishes() {
             title: "Action",
             render: (text: string, record: Dish) => (
                 <Space size="middle">
-                    <a
-                        onClick={() => showEditModal(record)}
-                        onKeyDown={this.handleKeyDown}
-                    >Edit</a>
+                    <a onClick={() => showEditModal(record)}>Edit</a>
                     <a>Delete</a>
                 </Space>
             ),
