@@ -39,7 +39,7 @@ public class OrderingSysService {
        return dishRepo.save(newDish);
     }
 
-    public Dish UpdateThisDish(Dish dish) {
+    public Dish updateThisDish(Dish dish) {
        return dishRepo.save(dish);
     }
 

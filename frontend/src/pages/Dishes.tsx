@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllDishes } from "../API";
 import { Space, Table, Tag, Modal, Form, Input, Button, Switch } from "antd";
 import { Dish } from "../entity/Dish.ts";
+import axios from "axios";
 
 function Dishes() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
@@ -18,6 +19,20 @@ function Dishes() {
         setEditingDish(null);
         setModalVisible(false);
     };
+
+    function deleteThisItem(id: string) {
+        // all dishes without the deleted one
+        const updatedDishes = dataSource.filter(dish=> dish._id !== id);
+        setDataSource(updatedDishes);
+
+        axios.delete("api/admin/dish/delete/" + id)
+            .then(()=>{
+
+            })
+            .catch(error => {
+                console.error("Error deleting the item:", error)
+            })
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -66,7 +81,7 @@ function Dishes() {
             render: (text: string, record: Dish) => (
                 <Space size="middle">
                     <Button onClick={() => showEditModal(record)}>Edit</Button>
-                    <Button>Delete</Button>
+                    <Button onClick={() => deleteThisItem(record._id)}>Delete</Button>
                 </Space>
             ),
         },

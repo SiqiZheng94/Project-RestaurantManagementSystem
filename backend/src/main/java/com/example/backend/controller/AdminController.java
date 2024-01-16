@@ -26,7 +26,7 @@ public class AdminController {
 
     @PutMapping("/dish/update")
     public Dish updateThisDish(@RequestBody Dish dish) {
-        return service.UpdateThisDish(dish);
+        return service.updateThisDish(dish);
     }
 
     @DeleteMapping("/dish/delete/{id}")
