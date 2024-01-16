@@ -94,7 +94,7 @@ function Dishes() {
                     onCancel={handleModalCancel}
                     onFinish={() => {
                         // Handle form submission and update the dish data
-                        // add your logic here
+                        // add the app logic here
                         handleModalCancel();
                     }}
                 />
