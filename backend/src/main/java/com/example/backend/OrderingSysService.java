@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +45,18 @@ public class OrderingSysService {
 
     public void deleteThisDish(String id) {
        dishRepo.deleteById(id);
+    }
+
+    public List<Dish> getAllDishesByCategoryAndAvailability(DishCategoryEnum category, Boolean availability) {
+        return  dishRepo.findAllByCategoryAndAvailability(category,availability);
+   }
+
+    public List<Dish> getAllDishesByCategory(DishCategoryEnum category) {
+        return dishRepo.findAllByCategory(category);
+    }
+
+    public List<Dish> getAllDishesByAvailability(Boolean availability) {
+       return dishRepo.findAllByAvailability(availability);
     }
 
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {

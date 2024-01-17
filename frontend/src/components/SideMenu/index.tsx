@@ -38,9 +38,9 @@ function SideMenu() {
                         key: '/customers',
                     },
                     {
-                        label: "Dishes",
+                        label: "Menu",
                         icon: <ShopOutlined />,
-                        key: '/dishes',
+                        key: '/menu',
                     }
                 ]
 

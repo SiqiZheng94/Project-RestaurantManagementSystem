@@ -35,4 +35,8 @@
 }
 .PageContent{
   padding-left: 12px;
+  padding-top: 22px;
+}
+.pageContentHeader{
+  display: flex;
 }
