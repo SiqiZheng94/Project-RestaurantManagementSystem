@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getAllDishes } from "../API";
+import {deleteThisDishApi, getAllDishesApi, updateThisDishApi} from "../API";
 import { Space, Table, Tag, Modal, Form, Input, Button, Switch } from "antd";
 import { Dish } from "../entity/Dish.ts";
-import axios from "axios";
+
 
 function Dishes() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
@@ -25,18 +25,28 @@ function Dishes() {
         const updatedDishes = dataSource.filter(dish=> dish._id !== id);
         setDataSource(updatedDishes);
 
-        axios.delete("api/admin/dish/delete/" + id)
-            .then(()=>{
+        deleteThisDishApi(id);
+    }
 
-            })
-            .catch(error => {
-                console.error("Error deleting the item:", error)
+    function updateThisItem(selectedDish: Dish){
+        updateThisDishApi(selectedDish)
+            .then(() => {
+                // update the datasource
+                const  updatedDishes = dataSource.map((dish) => {
+                    // find the selected item and return the updated one
+                    if (dish._id === selectedDish._id) {
+                        return selectedDish;
+                    }
+                    return dish;
+                });
+                // update the datasource
+                setDataSource(updatedDishes);
             })
     }
 
     useEffect(() => {
         setLoading(true);
-        getAllDishes().then((res: Dish[]) => {
+        getAllDishesApi().then((res: Dish[]) => {
             setDataSource(res);
             setLoading(false);
         });
@@ -110,15 +120,17 @@ function Dishes() {
                     onFinish={() => {
                         // Handle form submission and update the dish data
                         // add the app logic here
+
                         handleModalCancel();
                     }}
+                    updateThisItem={updateThisItem} // Pass the updateThisItem function as a prop
                 />
             </Modal>
         </div>
     );
 }
 
-function DishEditForm({ dish, onCancel, onFinish }: any) {
+function DishEditForm({ dish, onCancel, onFinish, updateThisItem}: any) {
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -131,8 +143,10 @@ function DishEditForm({ dish, onCancel, onFinish }: any) {
         form
             .validateFields()
             .then((values) => {
-                // Handle form submission and update the dish data
-                // You can add your logic here
+                // Combine existing dish data with form values
+                const updatedDish = { ...dish, ...values };
+                // Call the updateThisDish function with the updated dish data
+                updateThisItem(updatedDish);
                 onFinish();
             })
             .catch((errorInfo) => {
