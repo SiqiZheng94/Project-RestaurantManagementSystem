@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {deleteThisDishApi, getAllDishesApi, updateThisDishApi} from "../API";
-import { Space, Table, Tag, Modal, Form, Input, Button, Switch } from "antd";
+import { Space, Table, Tag, Modal, Form, Input, Button, Switch, Select } from "antd";
 import { Dish } from "../entity/Dish.ts";
 
 
@@ -179,7 +179,15 @@ function DishEditForm({ dish, onCancel, onFinish, updateThisItem}: any) {
                     },
                 ]}
             >
-                <Input />
+                <Select>
+                    <Select.Option value="SIDE_DISHES">SIDE_DISHES</Select.Option>
+                    <Select.Option value="MAKI_ROLLS">MAKI_ROLLS</Select.Option>
+                    <Select.Option value="NIGIRI_GUNKAN">NIGIRI_GUNKAN</Select.Option>
+                    <Select.Option value="TEMAKI">TEMAKI</Select.Option>
+                    <Select.Option value="YAKI_VEGGIE">YAKI_VEGGIE</Select.Option>
+                    <Select.Option value="FRY">FRY</Select.Option>
+                    <Select.Option value="DRINK">DRINK</Select.Option>
+                </Select>
             </Form.Item>
 
             <Form.Item
