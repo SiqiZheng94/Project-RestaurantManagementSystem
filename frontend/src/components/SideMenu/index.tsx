@@ -23,6 +23,12 @@ function SideMenu() {
                         key: '/',
                     },
                     {
+                        label: "Menu",
+                        icon: <ShopOutlined />,
+                        key: '/menu',
+                    },
+
+                    {
                         label: "Inventory",
                         icon: <ShopOutlined />,
                         key: '/inventory',
@@ -37,11 +43,6 @@ function SideMenu() {
                         icon: <UserOutlined />,
                         key: '/customers',
                     },
-                    {
-                        label: "Menu",
-                        icon: <ShopOutlined />,
-                        key: '/menu',
-                    }
                 ]
 
                 }

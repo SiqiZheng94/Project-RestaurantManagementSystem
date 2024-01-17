@@ -1,5 +1,6 @@
 import axios from "axios";
 import {Dish} from "../model/Dish.ts";
+import {DishDTO} from "../model/DishDTO.ts";
 
 export const getAllDishesApi = ()=>{
     return axios.get("api/admin/menu")
@@ -14,4 +15,8 @@ export const updateThisDishApi = (selectedDish:Dish)=>{
 export const getAllFilteredDishesApi = (params)=>{
     return axios.get("api/admin/menu/filter", {params: params })
         .then(response=> response.data)
+}
+
+export const addANewDish = (dishDto:DishDTO)=>{
+    return axios.post("/menu/add", dishDto)
 }
