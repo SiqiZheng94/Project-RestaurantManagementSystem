@@ -11,9 +11,11 @@ import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +41,19 @@ public class OrderingSysService {
        return dishRepo.save(newDish);
     }
 
-    public Dish updateThisDish(Dish dish) {
-       return dishRepo.save(dish);
+    public Dish updateThisDish(String id, DishDTO dishDto) {
+        Optional<Dish> selectedDish = dishRepo.findById(id);
+        Dish updatedDish = new Dish(
+                selectedDish.get()._id(),
+                dishDto.getCategory(),
+                dishDto.getName(),
+                dishDto.getDescription(),
+                dishDto.getPrice(),
+                dishDto.isVegetarian(),
+                dishDto.isAvailability(),
+                selectedDish.get().dishId()
+        );
+        return dishRepo.save(updatedDish);
     }
 
     public void deleteThisDish(String id) {

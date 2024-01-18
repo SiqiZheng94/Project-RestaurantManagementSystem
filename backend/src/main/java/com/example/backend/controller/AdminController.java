@@ -25,9 +25,10 @@ public class AdminController {
         return service.saveNewDish(dishDto);
     }
 
-    @PutMapping("/menu/update")
-    public Dish updateThisDish(@RequestBody Dish dish) {
-        return service.updateThisDish(dish);
+
+    @PutMapping("/menu/update/{id}")
+    public Dish updateThisDish(@PathVariable String id, @RequestBody DishDTO dishDto) {
+        return service.updateThisDish(id, dishDto);
     }
 
     @DeleteMapping("/menu/delete/{id}")
