@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,6 +23,8 @@ import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 class AdminControllerTest {
     private final String BASE_URL = "/api/admin";
     @Autowired
@@ -29,6 +32,14 @@ class AdminControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Test
+    void getAllDishes_whenRepositoryIsEmpty_shouldReturnEmptyList() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    []
+                """));
+    }
     @Test
     void updateThisDish_whenUpdateSavedDish_shouldReturnUpdatedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -52,10 +63,37 @@ class AdminControllerTest {
     }
     @Test
     void getAllFilteredDishes_whenCategoryIsFryAndAvailabilityIsFalse_shouldReturnExpectedDish () throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        String expectedDishJson = objectMapper.writeValueAsString(savedDish);
+
         mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu/filter")
-                .param("category", "FRY")
-                .param("availability", "false"))
+                .param("category", "DRINK")
+                .param("availability", "true"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
+    }
+    @Test
+    void deleteThisDish_shouldReturnEmptyList () throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/menu/delete/" + savedDish._id()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    []
+                """));
     }
 }
