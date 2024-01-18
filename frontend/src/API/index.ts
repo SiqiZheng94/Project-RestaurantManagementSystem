@@ -1,5 +1,4 @@
 import axios from "axios";
-import {Dish} from "../model/Dish.ts";
 import {DishDTO} from "../model/DishDTO.ts";
 
 export const getAllDishesApi = ()=>{
@@ -9,8 +8,9 @@ export const getAllDishesApi = ()=>{
 export const deleteThisDishApi = (id:string)=>{
     return axios.delete("api/admin/menu/delete/" + id)
 }
-export const updateThisDishApi = (selectedDish:Dish)=>{
-    return axios.put("api/admin/menu/update", selectedDish)
+export const updateThisDishApi = (id:string, updatedDishDto:DishDTO)=>{
+    return axios.put("api/admin/menu/update/" + id, updatedDishDto)
+        .then(response=> response.data)
 }
 export const getAllFilteredDishesApi = (params)=>{
     return axios.get("api/admin/menu/filter", {params: params })

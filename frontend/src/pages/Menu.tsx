@@ -3,6 +3,7 @@ import {deleteThisDishApi, getAllDishesApi, getAllFilteredDishesApi, updateThisD
 import {Space, Table, Tag, Modal, Button, Select} from "antd";
 import { Dish } from "../model/Dish.ts";
 import DishEditForm from "../components/MenuPage/DishEditForm.tsx";
+import {DishDTO} from "../model/DishDTO.ts";
 
 
 
@@ -44,19 +45,18 @@ export default function Menu() {
             });
     }
 
-    function updateThisItem(selectedDish: Dish){
-        updateThisDishApi(selectedDish)
-            .then(() => {
-                // update the datasource
-                const  updatedDishes = dataSource.map((dish) => {
-                    // find the selected item and return the updated one
-                    if (dish._id === selectedDish._id) {
-                        return selectedDish;
-                    }
-                    return dish;
-                });
-                setDataSource(updatedDishes);
-            })
+    function updateThisItem(id:string, updatedDishDto:DishDTO){
+        // Update dataSource immediately
+        const updatedDishes = dataSource.map((dish) => {
+            if (dish._id === id) {
+                return { ...dish, ...updatedDishDto };
+            }
+            return dish;
+        });
+        setDataSource(updatedDishes);
+
+        // Send the request
+        updateThisDishApi(id, updatedDishDto)
             .catch(error => {
                 console.error("Error fetching data:", error);
             })
@@ -191,10 +191,7 @@ export default function Menu() {
                 <DishEditForm
                     dish={editingDish}
                     onCancel={handleModalCancel}
-                    onFinish={() => {
-
-                        handleModalCancel();
-                    }}
+                    onFinish={handleModalCancel}
                     // Pass the updateThisItem function as a prop
                     updateThisItem={updateThisItem}
                 />

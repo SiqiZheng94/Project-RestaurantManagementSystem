@@ -17,7 +17,7 @@ export default function DishEditForm({ dish, onCancel, onFinish, updateThisItem}
                 // Combine existing dish data with form values
                 const updatedDish = { ...dish, ...values };
                 // Call the updateThisDish function with the updated dish data
-                updateThisItem(updatedDish);
+                updateThisItem(dish._id, updatedDish);
                 onFinish();
             })
             .catch((errorInfo) => {
@@ -100,7 +100,7 @@ export default function DishEditForm({ dish, onCancel, onFinish, updateThisItem}
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" >
                     Save
                 </Button>
                 <Button onClick={onCancel}>Cancel</Button>
