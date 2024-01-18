@@ -62,7 +62,7 @@ class AdminControllerTest {
         Assertions.assertEquals(updatedDish, expectedDish);
     }
     @Test
-    void getAllFilteredDishes_whenCategoryIsFryAndAvailabilityIsFalse_shouldReturnExpectedDish () throws Exception {
+    void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
@@ -75,6 +75,53 @@ class AdminControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu/filter")
                 .param("category", "DRINK")
                 .param("availability", "true"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
+    }
+    @Test
+    void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        String expectedDishJson = objectMapper.writeValueAsString(savedDish);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu/filter")
+                        .param("category", "DRINK"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
+    }
+    @Test
+    void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        String expectedDishJson = objectMapper.writeValueAsString(savedDish);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu/filter")
+                        .param("availability", "true"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
+    }
+    @Test
+    void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        String expectedDishJson = objectMapper.writeValueAsString(savedDish);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/menu/filter"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
     }
