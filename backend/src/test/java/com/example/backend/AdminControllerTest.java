@@ -40,6 +40,7 @@ class AdminControllerTest {
                     []
                 """));
     }
+
     @Test
     void updateThisDish_whenUpdateSavedDish_shouldReturnUpdatedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -61,6 +62,7 @@ class AdminControllerTest {
         Dish expectedDish = new Dish(savedDish._id(), DishCategoryEnum.FRY, "Test", "Test", 1.00F, false, false,savedDish.dishId());
         Assertions.assertEquals(updatedDish, expectedDish);
     }
+
     @Test
     void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -78,6 +80,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
     }
+
     @Test
     void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -94,6 +97,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
     }
+
     @Test
     void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -110,6 +114,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
     }
+
     @Test
     void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
@@ -125,6 +130,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(expectedDishJson))));
     }
+
     @Test
     void deleteThisDish_shouldReturnEmptyList () throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);

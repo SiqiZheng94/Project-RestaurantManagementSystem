@@ -5,6 +5,7 @@ import com.example.backend.entity.Dish;
 import com.example.backend.repo.DishInCartRepo;
 import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,6 +20,7 @@ class OrderingSysServiceTest {
     private final DishRepo mockDishRepo=mock(DishRepo.class);
     private final DishInCartRepo mockDishInCartRepo=mock(DishInCartRepo.class);
     private final OrderRepo mockOrderRepo=mock(OrderRepo.class);
+
     @Test
     void getAllDishesTest(){
         //GIVEN
@@ -30,8 +32,9 @@ class OrderingSysServiceTest {
         List<Dish> actual = orderingSysService.getAllDishes();
         //THEN
         verify(mockDishRepo).findAll();
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected, actual);
     }
+
     @Test
     void saveNewDish(){
         //GIVEN
@@ -43,7 +46,7 @@ class OrderingSysServiceTest {
         Dish actual = orderingSysService.saveNewDish(dishDTO);
         //THEN
         verify(mockDishRepo).save(expected);
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected, actual);
     }
 
 }

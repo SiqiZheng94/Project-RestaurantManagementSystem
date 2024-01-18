@@ -35,7 +35,7 @@ public class OrderingSysService {
                dishDto.getDescription(),
                dishDto.getPrice(),
                dishDto.isVegetarian(),
-               true,
+               dishDto.isAvailability(),
                dishRepo.findAll().size()+1
        );
        return dishRepo.save(newDish);
@@ -106,7 +106,4 @@ public class OrderingSysService {
     public void buy() {
        dishInCartRepo.deleteAll();
     }
-
-
-
 }
