@@ -6,11 +6,12 @@ import {
     getAllFilteredDishesApi,
     updateThisDishApi
 } from "../API";
-import {Space, Table, Tag, Button, Select, Form} from "antd";
+import {Space, Table, Tag, Modal, Button, Select, Form, Input, Switch} from "antd";
 import { Dish } from "../model/Dish.ts";
 import DishEditModal from "../components/MenuPage/DishEditModal.tsx";
 import {DishDTO} from "../model/DishDTO.ts";
 import AddDishModal from "../components/MenuPage/AddDishModal.tsx";
+import DishForm from "../components/MenuPage/DishForm.tsx";
 
 
 
@@ -205,20 +206,22 @@ export default function Menu() {
                 }))}
             />
 
-            <DishEditModal
-                visible={editModalVisible}
-                dish={editingDish}
-                onCancel={handleModalCancel}
-                onFinish={handleModalCancel}
-                // Pass the updateThisItem function as a prop
-                updateThisItem={updateThisItem}
-            />
+
+                <DishEditModal
+                    visible={editModalVisible}
+                    dish={editingDish}
+                    onCancel={handleModalCancel}
+                    onFinish={handleModalCancel}
+                    // Pass the updateThisItem function as a prop
+                    updateThisItem={updateThisItem}
+                />
 
             <AddDishModal
                 visible={addModalVisible}
                 onCancel={handleAddModalCancel}
                 createNewDish={createNewDish}
             />
+
 
         </div>
     );
