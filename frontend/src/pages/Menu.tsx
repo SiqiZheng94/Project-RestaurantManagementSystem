@@ -6,11 +6,9 @@ import {
     getAllFilteredDishesApi,
     updateThisDishApi
 } from "../API";
-import {Space, Table, Tag, Modal, Button, Select, Form, Input, Switch} from "antd";
+import {Space, Table, Tag, Modal, Button, Select} from "antd";
 import { Dish } from "../model/Dish.ts";
-import DishEditModal from "../components/MenuPage/DishEditModal.tsx";
 import {DishDTO} from "../model/DishDTO.ts";
-import AddDishModal from "../components/MenuPage/AddDishModal.tsx";
 import DishForm from "../components/MenuPage/DishForm.tsx";
 
 
@@ -24,7 +22,7 @@ export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedAvailability, setSelectedAvailability] = useState<boolean | null>(null);
     const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
-    const [form] = Form.useForm();
+
     const showEditModal = (dish: Dish) => {
         setEditingDish(dish);
         setEditModalVisible(true);
@@ -37,7 +35,6 @@ export default function Menu() {
 
     function showAddModal() {
         setAddModalVisible(true);
-        form.resetFields();
     }
 
     const handleAddModalCancel = () => {
@@ -61,11 +58,11 @@ export default function Menu() {
             .then((response)=>{
                 const newDish = response.data;
                 setDataSource([...dataSource, newDish]);
-                handleAddModalCancel();
             })
             .catch((error) => {
                 console.error("Error creating new dish:", error);
             });
+        handleAddModalCancel();
     }
 
     function updateThisItem(id:string, updatedDishDto:DishDTO){
@@ -83,7 +80,8 @@ export default function Menu() {
             .then(response=> response.data)
             .catch(error => {
                 console.error("Error fetching data:", error);
-            })
+            });
+        handleModalCancel();
     }
 
     function handleSearch(){
@@ -206,22 +204,36 @@ export default function Menu() {
                 }))}
             />
 
-
-                <DishEditModal
-                    visible={editModalVisible}
+            <Modal
+                title="Edit Dish"
+                open={editModalVisible}
+                onCancel={handleModalCancel}
+                footer={null}
+            >
+                <DishForm
                     dish={editingDish}
                     onCancel={handleModalCancel}
-                    onFinish={handleModalCancel}
-                    // Pass the updateThisItem function as a prop
-                    updateThisItem={updateThisItem}
+                    onFinish={(values) => {
+                        if (editingDish) {
+                            updateThisItem(editingDish._id, values);
+                        }
+                    }}
                 />
+            </Modal>
 
-            <AddDishModal
-                visible={addModalVisible}
+            <Modal
+                title="Add New Dish"
+                open={addModalVisible}
                 onCancel={handleAddModalCancel}
-                createNewDish={createNewDish}
-            />
-
+                footer={null}
+            >
+                <DishForm
+                    onCancel={handleAddModalCancel}
+                    onFinish={(values) => {
+                        createNewDish(values);
+                    }}
+                />
+            </Modal>
 
         </div>
     );

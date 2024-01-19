@@ -1,13 +1,19 @@
 import { Button, Form, Input, Select, Switch } from "antd";
+import {useEffect} from "react";
 
 export default function DishForm({
-
+                                     dish,
                                      onCancel,
                                      onFinish,
-
                                  }: any) {
     const [form] = Form.useForm();
-
+    useEffect(() => {
+        if (dish) {
+            form.setFieldsValue(dish);
+        } else {
+            form.resetFields();
+        }
+    }, [dish, form, onFinish]);
     return (
         <Form form={form}
               onFinish={onFinish}
