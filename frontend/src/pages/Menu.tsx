@@ -6,10 +6,11 @@ import {
     getAllFilteredDishesApi,
     updateThisDishApi
 } from "../API";
-import {Space, Table, Tag, Modal, Button, Select, Form, Input, Switch} from "antd";
+import {Space, Table, Tag, Button, Select, Form} from "antd";
 import { Dish } from "../model/Dish.ts";
-import DishEditForm from "../components/MenuPage/DishEditForm.tsx";
+import DishEditModal from "../components/MenuPage/DishEditModal.tsx";
 import {DishDTO} from "../model/DishDTO.ts";
+import AddDishModal from "../components/MenuPage/AddDishModal.tsx";
 
 
 
@@ -204,117 +205,21 @@ export default function Menu() {
                 }))}
             />
 
-            <Modal
-                title="Edit Dish"
-                open={editModalVisible}
+            <DishEditModal
+                visible={editModalVisible}
+                dish={editingDish}
                 onCancel={handleModalCancel}
-                footer={null}
-            >
-                <DishEditForm
-                    dish={editingDish}
-                    onCancel={handleModalCancel}
-                    onFinish={handleModalCancel}
-                    // Pass the updateThisItem function as a prop
-                    updateThisItem={updateThisItem}
-                />
-            </Modal>
-//==================================
-            // 示例 Modal 组件
-            <Modal
-                title="Add New Dish"
-                open={addModalVisible}
+                onFinish={handleModalCancel}
+                // Pass the updateThisItem function as a prop
+                updateThisItem={updateThisItem}
+            />
+
+            <AddDishModal
+                visible={addModalVisible}
                 onCancel={handleAddModalCancel}
-                footer={null}
-            >
-                {/* 表单字段 */}
-                <Form
-                    form={form}
-                    onFinish={(values) => {createNewDish(values);}}
-                >
-                    {/* 表单字段 */}
+                createNewDish={createNewDish}
+            />
 
-                        <Form.Item
-                            name="name"
-                            label="Name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter the dish name",
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="category"
-                            label="Category"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter the category",
-                                },
-                            ]}
-                        >
-                            <Select>
-                                <Select.Option value="SIDE_DISHES">SIDE_DISHES</Select.Option>
-                                <Select.Option value="MAKI_ROLLS">MAKI_ROLLS</Select.Option>
-                                <Select.Option value="NIGIRI_GUNKAN">NIGIRI_GUNKAN</Select.Option>
-                                <Select.Option value="TEMAKI">TEMAKI</Select.Option>
-                                <Select.Option value="YAKI_VEGGIE">YAKI_VEGGIE</Select.Option>
-                                <Select.Option value="FRY">FRY</Select.Option>
-                                <Select.Option value="DRINK">DRINK</Select.Option>
-                            </Select>
-                        </Form.Item>
-
-                        <Form.Item
-                            name="description"
-                            label="Description"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter the description",
-                                },
-                            ]}
-                        >
-                            <Input.TextArea />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="price"
-                            label="Price"
-                            rules={[
-                                {
-                                    required: true,
-                                    type: "number",
-                                    min: 0,
-                                    // Convert input values to floating point numbers
-                                    transform: (value) => parseFloat(value),
-                                    message: "Please enter a valid price",
-                                },
-                            ]}
-                        >
-                            <Input type="number" step="0.01" />
-                        </Form.Item>
-
-                        <Form.Item name="vegetarian" label="Vegetarian" valuePropName="checked">
-                            <Switch />
-                        </Form.Item>
-
-                        <Form.Item name="availability" label="Availability" valuePropName="checked">
-                            <Switch />
-                        </Form.Item>
-
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Save
-                            </Button>
-                            <Button onClick={handleAddModalCancel}>Cancel</Button>
-                        </Form.Item>
-
-                </Form>
-            </Modal>
-//==================================
         </div>
     );
 }

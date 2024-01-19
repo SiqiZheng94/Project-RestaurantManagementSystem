@@ -1,23 +1,39 @@
 import {Button, Form, Input, Modal, Select, Switch} from "antd";
+import {useEffect} from "react";
 
-
-export default function AddDishModal({ visible, onCancel, createNewDish }: any){
+export default function DishEditModal({ visible, dish, onCancel, onFinish, updateThisItem}: any) {
     const [form] = Form.useForm();
 
+    useEffect(() => {
+        if (dish) {
+            form.setFieldsValue(dish);
+        }
+    }, [dish, form]);
+
+    const handleSubmit = () => {
+        form
+            .validateFields()
+            .then((values) => {
+                // Combine existing dish data with form values
+                const updatedDish = { ...dish, ...values };
+                // Call the updateThisDish function with the updated dish data
+                updateThisItem(dish._id, updatedDish);
+                onFinish();
+            })
+            .catch((errorInfo) => {
+                console.log("Validation failed:", errorInfo);
+            });
+    };
 
     return (
         <Modal
-            title="Add New Dish"
+            title="Edit Dish"
             open={visible}
             onCancel={onCancel}
             footer={null}
         >
-            <Form form={form} name="addDishForm"
-                  onFinish={(values) => {
-                      createNewDish(values);
-                      // then reset all fields in form
-                      form.resetFields();
-                  }}
+            <Form form={form}
+                  onFinish={handleSubmit}
             >
                 <Form.Item
                     name="name"
@@ -38,7 +54,7 @@ export default function AddDishModal({ visible, onCancel, createNewDish }: any){
                     rules={[
                         {
                             required: true,
-                            message: "Please select the category",
+                            message: "Please enter the category",
                         },
                     ]}
                 >
@@ -92,7 +108,7 @@ export default function AddDishModal({ visible, onCancel, createNewDish }: any){
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" >
                         Save
                     </Button>
                     <Button onClick={onCancel}>Cancel</Button>
@@ -100,4 +116,4 @@ export default function AddDishModal({ visible, onCancel, createNewDish }: any){
             </Form>
         </Modal>
     );
-};
+}
