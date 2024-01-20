@@ -23,9 +23,9 @@ function SideMenu() {
                         key: '/',
                     },
                     {
-                        label: "Menu",
+                        label: "Menu Management",
                         icon: <ShopOutlined />,
-                        key: '/menu',
+                        key: '/menu-management',
                     },
 
                     {
@@ -42,6 +42,11 @@ function SideMenu() {
                         label: "Customers",
                         icon: <UserOutlined />,
                         key: '/customers',
+                    },
+                    {
+                        label: "Menu Ordering",
+                        icon: <ShopOutlined />,
+                        key: '/menu-ordering',
                     },
                 ]
 

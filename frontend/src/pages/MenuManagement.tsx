@@ -14,7 +14,7 @@ import DishForm from "../components/MenuPage/DishForm.tsx";
 
 
 
-export default function Menu() {
+export default function MenuManagement() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
