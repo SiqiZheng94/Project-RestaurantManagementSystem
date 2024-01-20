@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
@@ -10,6 +11,7 @@ import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,10 +35,41 @@ public class OrderingSysService {
                dishDto.getDescription(),
                dishDto.getPrice(),
                dishDto.isVegetarian(),
-               true,
+               dishDto.isAvailability(),
                dishRepo.findAll().size()+1
        );
        return dishRepo.save(newDish);
+    }
+
+    public Dish updateThisDish(String id, DishDTO dishDto) {
+        Optional<Dish> selectedDish = dishRepo.findById(id);
+        Dish updatedDish = new Dish(
+                selectedDish.get()._id(),
+                dishDto.getCategory(),
+                dishDto.getName(),
+                dishDto.getDescription(),
+                dishDto.getPrice(),
+                dishDto.isVegetarian(),
+                dishDto.isAvailability(),
+                selectedDish.get().dishId()
+        );
+        return dishRepo.save(updatedDish);
+    }
+
+    public void deleteThisDish(String id) {
+       dishRepo.deleteById(id);
+    }
+
+    public List<Dish> getAllDishesByCategoryAndAvailability(DishCategoryEnum category, Boolean availability) {
+        return  dishRepo.findAllByCategoryAndAvailability(category,availability);
+   }
+
+    public List<Dish> getAllDishesByCategory(DishCategoryEnum category) {
+        return dishRepo.findAllByCategory(category);
+    }
+
+    public List<Dish> getAllDishesByAvailability(Boolean availability) {
+       return dishRepo.findAllByAvailability(availability);
     }
 
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {

@@ -4,6 +4,7 @@ import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,8 +25,7 @@ import static org.junit.Assert.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
-public class UserControllerTest {
+class UserControllerTest {
     private final String BASE_URL = "/api/user";
     @Autowired
     private MockMvc mockMvc;
@@ -66,10 +66,10 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
         Order order = objectMapper.readValue(resultOrder.getResponse().getContentAsString(),Order.class);
-        assertNotNull(order._id());
-        assertTrue(order.localDateTime().isBefore(LocalDateTime.now()));
-        assertEquals("OPEN",order.status());
-        assertEquals(List.of(dishInCart),order.dishesInCart());
+        Assertions.assertNotNull(order._id());
+        Assertions.assertTrue(order.localDateTime().isBefore(LocalDateTime.now()));
+        Assertions.assertEquals("OPEN", order.status());
+        Assertions.assertEquals(List.of(dishInCart), order.dishesInCart());
     }
     @Test
     void buy_shouldEmptyChart () throws Exception

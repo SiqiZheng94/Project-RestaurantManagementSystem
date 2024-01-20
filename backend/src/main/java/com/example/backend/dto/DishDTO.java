@@ -13,4 +13,5 @@ public class DishDTO {
     private String description;
     private float price;
     private boolean vegetarian;
+    private boolean availability;
 }

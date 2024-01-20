@@ -3,7 +3,7 @@ import Customers from "../../pages/Customers.tsx";
 import Dashboard from "../../pages/Dashboard.tsx";
 import Inventory from "../../pages/Inventory.tsx";
 import Orders from "../../pages/Orders.tsx";
-import Dishes from "../../pages/Dishes.tsx";
+import Menu from "../../pages/Menu.tsx";
 
 function AppRoutes() {
     return (
@@ -12,7 +12,7 @@ function AppRoutes() {
                 <Route path="/inventory" element={<Inventory />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
                 <Route path="/customers" element={<Customers />}></Route>
-                <Route path="/dishes" element={<Dishes />}></Route>
+                <Route path="/menu" element={<Menu />}></Route>
             </Routes>
     );
 }
