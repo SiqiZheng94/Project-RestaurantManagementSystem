@@ -5,7 +5,7 @@
   height: 100vh;
 }
 .AppHeader{
-  height: 50px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,4 +39,14 @@
 }
 .pageContentHeader{
   display: flex;
+}
+.menu-display-container {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+.menu-card {
+  flex: 0 0 calc(25% - 16px); /* 让每个卡片占据四分之一的宽度，考虑到卡片之间的边距 */
+  margin: 8px; /* 添加卡片之间的边距 */
+  box-sizing: border-box; /* 让边距计算在内部 */
 }

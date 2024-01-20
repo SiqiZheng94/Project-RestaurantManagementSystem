@@ -1,12 +1,12 @@
 import { Image, Typography } from "antd";
-import myImage from "../../assets/logo-header.jpeg";
+import myImage from "../../assets/logo-header2.jpg";
 function AppHeader() {
 
 
     return (
         <div className="AppHeader">
             <Image
-                width={137}
+                height={70}
                 src={myImage}
             ></Image>
             <Typography.Title>Management System</Typography.Title>
