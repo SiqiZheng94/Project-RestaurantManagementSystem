@@ -7,5 +7,6 @@ export type Dish =  {
     vegetarian: boolean,
     availability: boolean,
     dishId: number,
+    imageURL: string,
 }
 

@@ -50,3 +50,23 @@
   margin: 8px;
   box-sizing: border-box;
 }
+.menu-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* 调整上边距 */
+}
+/* 定义 "Add to Cart" 按钮样式 */
+.menu-controls button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* 鼠标悬停时的按钮样式 */
+.menu-controls button:hover {
+  background-color: #0056b3;
+}
