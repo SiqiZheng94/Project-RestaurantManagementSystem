@@ -36,7 +36,8 @@ public class OrderingSysService {
                dishDto.getPrice(),
                dishDto.isVegetarian(),
                dishDto.isAvailability(),
-               dishRepo.findAll().size()+1
+               dishRepo.findAll().size()+1,
+               "https://i.pinimg.com/564x/eb/8a/f5/eb8af5f50a8557fc5aad97db8f4fa4cb.jpg"
        );
        return dishRepo.save(newDish);
     }
@@ -51,7 +52,8 @@ public class OrderingSysService {
                 dishDto.getPrice(),
                 dishDto.isVegetarian(),
                 dishDto.isAvailability(),
-                selectedDish.get().dishId()
+                selectedDish.get().dishId(),
+                selectedDish.get().imageURL()
         );
         return dishRepo.save(updatedDish);
     }
