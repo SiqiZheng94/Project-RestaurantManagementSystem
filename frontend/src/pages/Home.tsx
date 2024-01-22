@@ -1,17 +1,17 @@
 import {Button} from "antd";
 import {useNavigate} from "react-router-dom";
-var navigate = useNavigate();
-const openAdminDashboard = ()=>{
-    navigate("/admin");
-}
-const openUserDashboard = ()=>{
-    navigate("/menu-ordering");
-}
 export default function Home(){
+    const navigate = useNavigate();
+    const openAdminDashboard = ()=>{
+        navigate("/admin");
+    }
+    const openUserDashboard = ()=>{
+        navigate("/menu-ordering");
+    }
     return(
         <div>
-            <Button onClick={openAdminDashboard}></Button>
-            <Button onClick={openUserDashboard}></Button>
+            <Button onClick={openAdminDashboard}>Admin</Button>
+            <Button onClick={openUserDashboard}>User</Button>
         </div>
     )
 }

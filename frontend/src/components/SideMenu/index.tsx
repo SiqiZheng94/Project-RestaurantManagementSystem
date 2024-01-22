@@ -20,7 +20,7 @@ function SideMenu() {
                     {
                         label: "Dashboard",
                         icon: <AppstoreOutlined />,
-                        key: '/',
+                        key: '/admin',
                     },
                     {
                         label: "Menu Management",

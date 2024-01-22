@@ -14,6 +14,8 @@ import MenuOrdering from "./pages/MenuOrdering.tsx";
 import {useEffect, useState} from "react";
 import {Dish} from "./model/Dish.ts";
 import {getAllDishesApi} from "./API";
+import Home from "./pages/Home.tsx";
+
 
 
 function App() {
@@ -44,12 +46,14 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/" element={<Dashboard />}></Route>
+            <Route path="/admin" element={<Dashboard />}></Route>
             <Route path="/inventory" element={<Inventory />}></Route>
             <Route path="/orders" element={<Orders />}></Route>
             <Route path="/customers" element={<Customers />}></Route>
             <Route path="/menu-management" element={<MenuManagement />}></Route>
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} getDishes={fetchData}/>}></Route>
+            <Route path="/" element={<Home/>}></Route>
+
         </Routes>
       </Space>
       <AppFooter />

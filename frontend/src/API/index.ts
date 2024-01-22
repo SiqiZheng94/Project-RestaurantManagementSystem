@@ -19,6 +19,9 @@ export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
 }
 // User
-export const addDishInCart = (dishInCartDto:DishInCartDTO)=>{
+export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
     return axios.post("api/user/shoppingCart/add", dishInCartDto)
+}
+export const getAllDishesByCategoryApi = (category:string)=>{
+    return axios.get("api/user/menu/" + category)
 }

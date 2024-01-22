@@ -192,7 +192,7 @@ export default function MenuManagement() {
                         <Select.Option value={false}>No</Select.Option>
                 </Select>
                 <Button onClick={handleSearch}>Search</Button>
-                <Button onClick={showAddModal}>+ New Dish</Button>
+                <Button type="primary" onClick={showAddModal}>+ New Dish</Button>
             </div>
 
             <Table
