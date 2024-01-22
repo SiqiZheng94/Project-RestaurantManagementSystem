@@ -70,3 +70,8 @@
 .menu-controls button:hover {
   background-color: #0056b3;
 }
+
+.disabled-card {
+  opacity: 0.5; /* 设置禁用状态的透明度 */
+  pointer-events: none; /* 设置禁用状态下不响应用户事件 */
+}

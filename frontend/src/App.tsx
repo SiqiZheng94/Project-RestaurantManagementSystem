@@ -51,7 +51,7 @@ function App() {
             <Route path="/orders" element={<Orders />}></Route>
             <Route path="/customers" element={<Customers />}></Route>
             <Route path="/menu-management" element={<MenuManagement />}></Route>
-            <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} getDishes={fetchData}/>}></Route>
+            <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/" element={<Home/>}></Route>
 
         </Routes>

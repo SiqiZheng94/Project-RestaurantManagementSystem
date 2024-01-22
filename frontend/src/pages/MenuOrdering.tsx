@@ -1,16 +1,16 @@
 import Meta from "antd/es/card/Meta";
 import { Button, Card, InputNumber } from "antd";
 import { Dish } from "../model/Dish.ts";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { addDishInCartApi } from "../API";
 import { DishInCartDTO } from "../model/DishInCartDTO.ts";
 
 type MenuOrderingProps = {
     dishes: Dish[],
-    getDishes: () => void,
 }
 export default function MenuOrdering(props: MenuOrderingProps) {
     const dishesList = props.dishes;
+
     const [cart, setCart] = useState({}); // 用于存储购物车中的菜品数量
     const [inputValues, setInputValues] = useState({}); // 用于存储InputNumber的值
     const addToCart = (dishId, quantity) => {
@@ -23,11 +23,14 @@ export default function MenuOrdering(props: MenuOrderingProps) {
         setCart({ ...cart, [dishId]: quantity });
     };
 
+
     return (
         <div className={"menu-display-container"}>
             {dishesList.map((dish: Dish) => (
+
                 <Card
-                    className={"menu-card"}
+                    // className={"menu-card"}
+                    className={`menu-card ${!dish.availability ? 'disabled-card' : ''}`} // 根据 dish.availability 来添加禁用状态样式类
                     key={dish._id} // 添加一个唯一的 key 属性
                     hoverable
                     style={{ width: 230, height: 380 }}
