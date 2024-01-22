@@ -1,5 +1,5 @@
 import Meta from "antd/es/card/Meta";
-import { Button, Card, InputNumber } from "antd";
+import {Button, Card, InputNumber, Tag, Typography} from "antd";
 import { Dish } from "../model/Dish.ts";
 import {useEffect, useState} from "react";
 import { addDishInCartApi } from "../API";
@@ -47,6 +47,14 @@ export default function MenuOrdering(props: MenuOrderingProps) {
                     } // 使用 dish 的图片 URL
                 >
                     <Meta title={dish.name} description={dish.description} />
+                    <div className="menu-details">
+                        <Typography.Text className="menu-price" style={{ fontSize: "16px", marginTop: "10px", fontWeight: "bold" }}>
+                            Price: {dish.price} €
+                        </Typography.Text>
+                        {dish.vegetarian && (
+                            <Tag color={"green"}>Vegetarian</Tag>
+                        )}
+                    </div>
                     <div className="menu-controls">
                         <InputNumber
                             min={0}

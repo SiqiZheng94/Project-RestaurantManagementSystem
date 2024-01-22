@@ -75,3 +75,8 @@
   opacity: 0.5; /* 设置禁用状态的透明度 */
   pointer-events: none; /* 设置禁用状态下不响应用户事件 */
 }
+.menu-details{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
