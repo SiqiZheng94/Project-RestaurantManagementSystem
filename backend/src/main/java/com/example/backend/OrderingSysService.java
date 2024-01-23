@@ -11,7 +11,6 @@ import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,20 +74,28 @@ public class OrderingSysService {
     }
 
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
-        List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
-       if(!optionalDishInCart.isEmpty())
-        {
-            optionalDishInCart.get(0).setAmount(optionalDishInCart.get(0).getAmount()+dishInCartDTO.getAmount());
-            return dishInCartRepo.save(optionalDishInCart.get(0));
-        } else {
-           DishInCart dishInChat = new DishInCart(
-                   null,
-                   dishInCartDTO.getDishId(),
-                   dishInCartDTO.getAmount(),
-                   dishInCartDTO.getPrice()
-           );
-           return dishInCartRepo.save(dishInChat);
-       }
+        List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
+        List<Dish> selectedDish = dishRepo.findAllByDishId(dishInCartDTO.getDishId());
+
+            if(!dishAlreadyInCart.isEmpty())
+            {
+                int amount = dishAlreadyInCart.get(0).getAmount()+dishInCartDTO.getAmount();
+                dishAlreadyInCart.get(0).setAmount(amount);
+                dishAlreadyInCart.get(0).setTotalPrice(amount * selectedDish.get(0).price());
+                return dishInCartRepo.save(dishAlreadyInCart.get(0));
+            } else {
+                DishInCart dishInChat = new DishInCart(
+                        null,
+                        selectedDish.get(0).dishId(),
+                        selectedDish.get(0).name(),
+                        selectedDish.get(0).description(),
+                        dishInCartDTO.getAmount(),
+                        selectedDish.get(0).price(),
+                        selectedDish.get(0).price() * dishInCartDTO.getAmount()
+
+                );
+                return dishInCartRepo.save(dishInChat);
+            }
     }
 
     public List<DishInCart> getAllDishesInCart() {

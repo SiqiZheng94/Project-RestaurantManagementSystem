@@ -22,3 +22,6 @@ export const createNewDishApi = (dishDto:DishDTO)=>{
 export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
     return axios.post("api/user/shoppingCart/add", dishInCartDto)
 }
+export const getAllDishesInCartApi = ()=>{
+    return axios.get("api/user/shoppingCart")
+}

@@ -48,6 +48,11 @@ function SideMenu() {
                         icon: <ShopOutlined />,
                         key: '/menu-ordering',
                     },
+                    {
+                        label: "Cart",
+                        icon: <ShoppingCartOutlined />,
+                        key: '/cart',
+                    },
                 ]
 
                 }

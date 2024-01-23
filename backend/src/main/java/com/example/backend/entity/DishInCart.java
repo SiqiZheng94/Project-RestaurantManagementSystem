@@ -15,10 +15,13 @@ import java.math.BigDecimal;
 public class DishInCart {
     private String _id;
     private int dishId;
+    private String name;
+    private String description;
     private int amount;
-    float price;
+    private float onePiecePrice;
+    private float totalPrice;
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+//    public void setAmount(int amount) {
+//        this.amount = amount;
+//    }
 }
