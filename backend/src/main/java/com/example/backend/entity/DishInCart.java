@@ -20,8 +20,4 @@ public class DishInCart {
     private int amount;
     private float onePiecePrice;
     private float totalPrice;
-
-//    public void setAmount(int amount) {
-//        this.amount = amount;
-//    }
 }
