@@ -15,8 +15,8 @@ export default function MenuCard(props: MenuCardProps) {
     );
 
     const handleInputChange = (value: number | string | undefined) => {
-        const parsedValue = parseInt(value as string, 10); // 将输入值解析为整数
-        setInputValue(parsedValue); // 更新输入值状态
+        const parsedValue = parseInt(value as string, 10);
+        setInputValue(parsedValue);
     };
 
     const handlePressEnter = () => {

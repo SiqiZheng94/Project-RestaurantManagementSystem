@@ -1,8 +1,6 @@
 package com.example.backend.controller;
 
 import com.example.backend.OrderingSysService;
-import com.example.backend.commen.DishCategoryEnum;
-import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
@@ -21,10 +19,6 @@ public class UserController {
     @GetMapping
     public List<Dish> getAllDishes() {
         return service.getAllDishes();
-    }
-    @GetMapping("/menu/{category}")
-    public List<Dish> getAllDishesByCategory(@PathVariable DishCategoryEnum category) {
-        return service.getAllDishesByCategory(category);
     }
     @PostMapping("/shoppingCart/add")
     public DishInCart addDishInCart (@RequestBody DishInCartDTO dishInCartDTO){

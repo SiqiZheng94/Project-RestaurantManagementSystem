@@ -10,9 +10,9 @@ type MenuOrderingProps = {
 }
 export default function MenuOrdering(props: MenuOrderingProps) {
     const dishesList = props.dishes;
-
-    const [cart, setCart] = useState({}); // 用于存储购物车中的菜品数量
-    const [inputValues, setInputValues] = useState({}); // 用于存储InputNumber的值
+    // store the number of dishes in the cart
+    const [cart, setCart] = useState({});
+    const [inputValues, setInputValues] = useState({});
     const addToCart = (dishId, quantity) => {
         const dishInCartDTO: DishInCartDTO = {
             dishId: dishId,
