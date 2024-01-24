@@ -16,6 +16,7 @@ public record Dish(
         float price,
         boolean vegetarian,
         boolean availability,
-        int dishId
+        int dishId,
+        String imageURL
 ) {
 }

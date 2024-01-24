@@ -1,6 +1,7 @@
 import axios from "axios";
 import {DishDTO} from "../model/DishDTO.ts";
-
+import {DishInCartDTO} from "../model/DishInCartDTO.ts";
+// Admin
 export const getAllDishesApi = ()=>{
     return axios.get("api/admin/menu")
 }
@@ -16,4 +17,11 @@ export const getAllFilteredDishesApi = (params)=>{
 
 export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
+}
+// User
+export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
+    return axios.post("api/user/shoppingCart/add", dishInCartDto)
+}
+export const getAllDishesInCartApi = ()=>{
+    return axios.get("api/user/shoppingCart")
 }

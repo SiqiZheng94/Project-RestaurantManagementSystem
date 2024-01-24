@@ -11,7 +11,6 @@ import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,7 +35,8 @@ public class OrderingSysService {
                dishDto.getPrice(),
                dishDto.isVegetarian(),
                dishDto.isAvailability(),
-               dishRepo.findAll().size()+1
+               dishRepo.findAll().size()+1,
+               "https://i.pinimg.com/564x/eb/8a/f5/eb8af5f50a8557fc5aad97db8f4fa4cb.jpg"
        );
        return dishRepo.save(newDish);
     }
@@ -51,7 +51,8 @@ public class OrderingSysService {
                 dishDto.getPrice(),
                 dishDto.isVegetarian(),
                 dishDto.isAvailability(),
-                selectedDish.get().dishId()
+                selectedDish.get().dishId(),
+                selectedDish.get().imageURL()
         );
         return dishRepo.save(updatedDish);
     }
@@ -73,20 +74,28 @@ public class OrderingSysService {
     }
 
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
-        List<DishInCart> optionalDishInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
-       if(!optionalDishInCart.isEmpty())
-        {
-            optionalDishInCart.get(0).setAmount(optionalDishInCart.get(0).getAmount()+dishInCartDTO.getAmount());
-            return dishInCartRepo.save(optionalDishInCart.get(0));
-        } else {
-           DishInCart dishInChat = new DishInCart(
-                   null,
-                   dishInCartDTO.getDishId(),
-                   dishInCartDTO.getAmount(),
-                   dishInCartDTO.getPrice()
-           );
-           return dishInCartRepo.save(dishInChat);
-       }
+        List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
+        List<Dish> selectedDish = dishRepo.findAllByDishId(dishInCartDTO.getDishId());
+
+            if(!dishAlreadyInCart.isEmpty())
+            {
+                int amount = dishAlreadyInCart.get(0).getAmount()+dishInCartDTO.getAmount();
+                dishAlreadyInCart.get(0).setAmount(amount);
+                dishAlreadyInCart.get(0).setTotalPrice(amount * selectedDish.get(0).price());
+                return dishInCartRepo.save(dishAlreadyInCart.get(0));
+            } else {
+                DishInCart dishInChat = new DishInCart(
+                        null,
+                        selectedDish.get(0).dishId(),
+                        selectedDish.get(0).name(),
+                        selectedDish.get(0).description(),
+                        dishInCartDTO.getAmount(),
+                        selectedDish.get(0).price(),
+                        selectedDish.get(0).price() * dishInCartDTO.getAmount()
+
+                );
+                return dishInCartRepo.save(dishInChat);
+            }
     }
 
     public List<DishInCart> getAllDishesInCart() {

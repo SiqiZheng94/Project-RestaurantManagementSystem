@@ -59,7 +59,7 @@ class AdminControllerTest {
                 .andReturn();
         Dish updatedDish = objectMapper.readValue(updateResult.getResponse().getContentAsString(), Dish.class);
 
-        Dish expectedDish = new Dish(savedDish._id(), DishCategoryEnum.FRY, "Test", "Test", 1.00F, false, false,savedDish.dishId());
+        Dish expectedDish = new Dish(savedDish._id(), DishCategoryEnum.FRY, "Test", "Test", 1.00F, false, false,savedDish.dishId(), savedDish.imageURL());
         Assertions.assertEquals(updatedDish, expectedDish);
     }
 

@@ -15,10 +15,9 @@ import java.math.BigDecimal;
 public class DishInCart {
     private String _id;
     private int dishId;
+    private String name;
+    private String description;
     private int amount;
-    float price;
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    private float onePiecePrice;
+    private float totalPrice;
 }

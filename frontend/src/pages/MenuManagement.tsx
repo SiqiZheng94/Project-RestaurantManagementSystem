@@ -9,12 +9,12 @@ import {
 import {Space, Table, Tag, Modal, Button, Select} from "antd";
 import { Dish } from "../model/Dish.ts";
 import {DishDTO} from "../model/DishDTO.ts";
-import DishForm from "../components/MenuPage/DishForm.tsx";
+import DishForm from "../components/Menu/DishForm.tsx";
 
 
 
 
-export default function Menu() {
+export default function MenuManagement() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
@@ -165,7 +165,8 @@ export default function Menu() {
 
     return (
         <div>
-            <div style={{ marginBottom: 16 }}>
+            <div className="SearchAndAdd" style={{ marginBottom: 16 }}>
+                <div>
                 Category:
                 <Select
                     style={{ width: 200, marginRight: 16 }}
@@ -192,7 +193,8 @@ export default function Menu() {
                         <Select.Option value={false}>No</Select.Option>
                 </Select>
                 <Button onClick={handleSearch}>Search</Button>
-                <Button onClick={showAddModal}>+ New Dish</Button>
+                </div>
+                <Button className="submit-button" type="primary" onClick={showAddModal}>+ New Dish</Button>
             </div>
 
             <Table

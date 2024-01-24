@@ -10,5 +10,5 @@ public interface DishRepo extends MongoRepository<Dish, String> {
     List<Dish> findAllByCategory(DishCategoryEnum category);
     List<Dish> findAllByAvailability(boolean availability);
     List<Dish> findAllByCategoryAndAvailability(DishCategoryEnum category, boolean availability);
-
+    List<Dish> findAllByDishId(int dishId);
 }

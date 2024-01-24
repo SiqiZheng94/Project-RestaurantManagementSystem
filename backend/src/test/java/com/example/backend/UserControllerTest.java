@@ -1,6 +1,8 @@
 package com.example.backend;
 
+import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
+import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +22,7 @@ import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.backend.commen.DishCategoryEnum.DRINK;
 import static org.junit.Assert.*;
 
 
@@ -33,26 +36,35 @@ class UserControllerTest {
     private ObjectMapper objectMapper;
     @Test
     void addDishInCart_shouldReturnDishInCart () throws Exception {
-        DishInCartDTO dishInCartDTO = new DishInCartDTO(
-                1,1, 2.46F
-        );
-       String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
-       MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
+        // add a dish in DB
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/admin/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        // add 10 * dish in cart
+        DishInCartDTO dishInCartDTO = new DishInCartDTO(savedDish.dishId(), 10);
+        String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/shoppingCart/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishInCartDtoJson))
+                .andReturn();
+        DishInCart dishAlreadyInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
+        // Add 10 more pieces and test for changes in quantity and price
+        DishInCart expect = new DishInCart(dishAlreadyInCart.get_id(),dishAlreadyInCart.getDishId(),dishAlreadyInCart.getName(),dishAlreadyInCart.getDescription(),20,savedDish.price(),dishAlreadyInCart.getOnePiecePrice()*20);
+        String expectJson = objectMapper.writeValueAsString(expect);
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
                .contentType(MediaType.APPLICATION_JSON)
                .content(dishInCartDtoJson))
-               .andReturn();
-
-        DishInCart dishInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
-        String dishInCartJson = objectMapper.writeValueAsString(dishInCart);
-
-       mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
                .andExpect(MockMvcResultMatchers.status().isOk())
-               .andExpect(MockMvcResultMatchers.content().json(String.valueOf(List.of(dishInCartJson))));
+               .andExpect(MockMvcResultMatchers.content().json(expectJson));
     }
     @Test
     void creatOrder_shouldReturnOrder () throws Exception {
             DishInCartDTO dishInCartDTO = new DishInCartDTO(
-                    1,1, 2.46F
+                    1,1
             );
             String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
             MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")

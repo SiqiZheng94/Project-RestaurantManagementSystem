@@ -5,7 +5,7 @@
   height: 100vh;
 }
 .AppHeader{
-  height: 50px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,4 +39,52 @@
 }
 .pageContentHeader{
   display: flex;
+}
+.SearchAndAdd{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 20px 8px;
+}
+
+
+.menu-display-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.separator {
+  margin: 20px 0 10px 10px;
+}
+.menu-card {
+  flex: 0 0 calc(25% - 16px);
+  margin: 8px;
+  box-sizing: border-box;
+}
+.disabled-card {
+  opacity: 0.5; /* the transparency */
+  pointer-events: none; /* not respond to user events */
+}
+.menu-details{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.menu-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.submit-button {
+  background-color: #FE6F5E;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+
+.menu-controls button:hover {
+  background-color: #0056b3;
 }
