@@ -32,11 +32,12 @@ public class UserController {
         public void deleteDishInCart(@PathVariable String id){
         service.deleteDishInCart(id);
     }
-
     @PutMapping("/shoppingCart/update")
     public DishInCart changeQuantity(@RequestBody DishInCartDTO dishInCartDTO){
         return service.changeQuantity(dishInCartDTO);
     }
+//    @GetMapping("/shoppingCart/total-price")
+//    public
     @GetMapping("/order")
     public Order creatOrder() {
         return service.creatOrder();

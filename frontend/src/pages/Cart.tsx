@@ -106,6 +106,11 @@ export default function Cart(){
                     key: dish.dishId.toString(),
                 }))}
             />
+            <div>
+                <Typography.Text>Total: </Typography.Text>
+                <Button className="submit-button">Payment</Button>
+            </div>
+
         </>
 
     )

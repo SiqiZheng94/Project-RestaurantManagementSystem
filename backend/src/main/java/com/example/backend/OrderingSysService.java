@@ -12,6 +12,7 @@ import com.example.backend.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -76,12 +77,12 @@ public class OrderingSysService {
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
         List<Dish> selectedDish = dishRepo.findAllByDishId(dishInCartDTO.getDishId());
-
+        BigDecimal decimalPrice = selectedDish.get(0).price();
             if(!dishAlreadyInCart.isEmpty())
             {
-                int amount = dishAlreadyInCart.get(0).getAmount()+dishInCartDTO.getAmount();
+                BigDecimal amount = dishAlreadyInCart.get(0).getAmount().add(dishInCartDTO.getAmount());
                 dishAlreadyInCart.get(0).setAmount(amount);
-                dishAlreadyInCart.get(0).setTotalPrice(amount * selectedDish.get(0).price());
+                dishAlreadyInCart.get(0).setTotalPrice(amount.multiply(decimalPrice));
                 return dishInCartRepo.save(dishAlreadyInCart.get(0));
             } else {
                 DishInCart dishInChat = new DishInCart(
@@ -91,7 +92,7 @@ public class OrderingSysService {
                         selectedDish.get(0).description(),
                         dishInCartDTO.getAmount(),
                         selectedDish.get(0).price(),
-                        selectedDish.get(0).price() * dishInCartDTO.getAmount()
+                        decimalPrice.multiply(dishInCartDTO.getAmount())
 
                 );
                 return dishInCartRepo.save(dishInChat);
@@ -110,9 +111,9 @@ public class OrderingSysService {
         int dishId = dishInCartDTO.getDishId();
         List<DishInCart> allByDishIdIs = dishInCartRepo.findAllByDishIdIs(dishId);
         DishInCart selectd = allByDishIdIs.get(0);
-        int updatedAmount = dishInCartDTO.getAmount();
+        BigDecimal updatedAmount = dishInCartDTO.getAmount();
         selectd.setAmount(updatedAmount);
-        selectd.setTotalPrice(selectd.getOnePiecePrice()*updatedAmount);
+        selectd.setTotalPrice(selectd.getOnePiecePrice().multiply(updatedAmount));
         return dishInCartRepo.save(selectd);
     }
 

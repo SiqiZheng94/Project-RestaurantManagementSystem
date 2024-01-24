@@ -17,7 +17,7 @@ public class DishInCart {
     private int dishId;
     private String name;
     private String description;
-    private int amount;
-    private float onePiecePrice;
-    private float totalPrice;
+    private BigDecimal amount;
+    private BigDecimal onePiecePrice;
+    private BigDecimal totalPrice;
 }
