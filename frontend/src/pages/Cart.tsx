@@ -84,10 +84,13 @@ export default function Cart(){
     {
         title: "Total Amount",
         dataIndex: "totalPrice",
+        render: (text, record) => (
+            <span>{parseFloat(record.totalPrice).toFixed(2)}</span>
+        ),
     },
     {
         title: "Action",
-        render: (text: string, record: DishInCart) => (
+        render: (record: DishInCart) => (
             <Space size="middle">
                 <Button onClick={() => deleteDishInCart(record._id)}>Delete</Button>
             </Space>

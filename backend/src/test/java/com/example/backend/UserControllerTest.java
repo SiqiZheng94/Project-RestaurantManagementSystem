@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,7 @@ class UserControllerTest {
     @Test
     void add10DishesInCart_shouldReturn20DishesInCart () throws Exception {
         // add a dish in DB
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/admin/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -45,7 +46,7 @@ class UserControllerTest {
                 .andReturn();
         Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
         // add 10 * dish in cart
-        DishInCartDTO dishInCartDTO = new DishInCartDTO(savedDish.dishId(), 10);
+        DishInCartDTO dishInCartDTO = new DishInCartDTO(savedDish.dishId(), new BigDecimal("10"));
         String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/shoppingCart/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -53,7 +54,8 @@ class UserControllerTest {
                 .andReturn();
         DishInCart dishAlreadyInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
         // Add 10 more pieces and test for changes in quantity and price
-        DishInCart expect = new DishInCart(dishAlreadyInCart.get_id(),dishAlreadyInCart.getDishId(),dishAlreadyInCart.getName(),dishAlreadyInCart.getDescription(),20,savedDish.price(),dishAlreadyInCart.getOnePiecePrice()*20);
+        DishInCart expect = new DishInCart(dishAlreadyInCart.get_id(),dishAlreadyInCart.getDishId(),dishAlreadyInCart.getName(),
+                dishAlreadyInCart.getDescription(),new BigDecimal("20"),savedDish.price(),dishAlreadyInCart.getOnePiecePrice().multiply(new BigDecimal("20")));
         String expectJson = objectMapper.writeValueAsString(expect);
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
                .contentType(MediaType.APPLICATION_JSON)
@@ -64,7 +66,7 @@ class UserControllerTest {
     @Test
     void creatOrder_shouldReturnOrder () throws Exception {
             DishInCartDTO dishInCartDTO = new DishInCartDTO(
-                    1,1
+                    1,new BigDecimal("1")
             );
             String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
             MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
