@@ -63,33 +63,23 @@ class UserControllerTest {
                .andExpect(MockMvcResultMatchers.status().isOk())
                .andExpect(MockMvcResultMatchers.content().json(expectJson));
     }
+
     @Test
-    void creatOrder_shouldReturnOrder () throws Exception {
-            DishInCartDTO dishInCartDTO = new DishInCartDTO(
-                    1,new BigDecimal("1")
-            );
-            String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
-            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(dishInCartDtoJson))
-                    .andReturn();
+    void payment_shouldEmptyChartAndNewOrder () throws Exception {
+        DishInCartDTO dishInCartDTO = new DishInCartDTO(
+                1,new BigDecimal("1")
+        );
+        String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/shoppingCart/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishInCartDtoJson))
+                .andReturn();
 
-            DishInCart dishInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
+        DishInCart dishInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
 
-        MvcResult resultOrder = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/order"))
+        MvcResult resultOrder = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart/payment"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        Order order = objectMapper.readValue(resultOrder.getResponse().getContentAsString(),Order.class);
-        Assertions.assertNotNull(order._id());
-        Assertions.assertTrue(order.localDateTime().isBefore(LocalDateTime.now()));
-        Assertions.assertEquals("OPEN", order.status());
-        Assertions.assertEquals(List.of(dishInCart), order.dishesInCart());
-    }
-    @Test
-    void buy_shouldEmptyChart () throws Exception
-    {
-        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL+"/shoppingCart/payment"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
@@ -97,6 +87,12 @@ class UserControllerTest {
                         []
                     """
                 ));
+
+        Order order = objectMapper.readValue(resultOrder.getResponse().getContentAsString(),Order.class);
+        Assertions.assertNotNull(order._id());
+        Assertions.assertTrue(order.localDateTime().isBefore(LocalDateTime.now()));
+        Assertions.assertEquals("OPEN", order.status());
+        Assertions.assertEquals(List.of(dishInCart), order.dishesInCart());
     }
 }
 
