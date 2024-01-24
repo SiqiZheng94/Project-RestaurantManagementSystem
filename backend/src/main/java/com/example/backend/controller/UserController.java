@@ -36,14 +36,9 @@ public class UserController {
     public DishInCart changeQuantity(@RequestBody DishInCartDTO dishInCartDTO){
         return service.changeQuantity(dishInCartDTO);
     }
-//    @GetMapping("/shoppingCart/total-price")
-//    public
-    @GetMapping("/order")
-    public Order creatOrder() {
-        return service.creatOrder();
+    @GetMapping("/shoppingCart/payment")
+    public Order creatOrderAndLeerCart() {
+        return service.creatOrderAndLeerCart();
     }
-    @DeleteMapping("/buy")
-    public void pay(){
-        service.buy();
-    }
+
 }

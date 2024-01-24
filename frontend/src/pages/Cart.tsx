@@ -1,7 +1,13 @@
 import {Button, InputNumber, Select, Space, Table, Tag, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
-import {changeQuantityApi, deleteDishInCartApi, getAllDishesApi, getAllDishesInCartApi} from "../API";
+import {
+    changeQuantityApi,
+    creatOrderAndLeerCartApi,
+    deleteDishInCartApi,
+    getAllDishesApi,
+    getAllDishesInCartApi
+} from "../API";
 import {DishInCartDTO} from "../model/DishInCartDTO.ts";
 
 export default function Cart(){
@@ -60,6 +66,21 @@ export default function Cart(){
             });
     }
 
+    async function creatOrderAndLeerCart() {
+        try {
+            // 执行支付逻辑，并等待完成
+            await creatOrderAndLeerCartApi();
+
+            // 更新数据源或重新加载数据
+            const response = await getAllDishesInCartApi();
+            setDataSource(response.data);
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const columns = [
     {
@@ -111,7 +132,8 @@ export default function Cart(){
             />
             <div>
                 <Typography.Text>Total: </Typography.Text>
-                <Button className="submit-button">Payment</Button>
+                <Button className="submit-button"
+                onClick={() => creatOrderAndLeerCart()}>Payment</Button>
             </div>
 
         </>

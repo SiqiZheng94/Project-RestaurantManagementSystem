@@ -88,7 +88,7 @@ class UserControllerTest {
     @Test
     void buy_shouldEmptyChart () throws Exception
     {
-        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL+"/buy"))
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL+"/shoppingCart/payment"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

@@ -31,3 +31,6 @@ export const deleteDishInCartApi = (id:string)=>{
 export const changeQuantityApi = (dishInCartDto:DishInCartDTO)=>{
     return axios.put("api/user/shoppingCart/update", dishInCartDto)
 }
+export const creatOrderAndLeerCartApi = ()=>{
+    return axios.get("api/user/shoppingCart/payment")
+}

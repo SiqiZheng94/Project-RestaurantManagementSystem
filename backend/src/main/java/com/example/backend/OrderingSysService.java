@@ -117,17 +117,15 @@ public class OrderingSysService {
         return dishInCartRepo.save(selectd);
     }
 
-    public Order creatOrder() {
+    public Order creatOrderAndLeerCart() {
        Order newOrder = new Order(
                null,
                LocalDateTime.now(),
                "OPEN",
                dishInCartRepo.findAll()
        );
+       dishInCartRepo.deleteAll();
        return orderRepo.save(newOrder);
     }
 
-    public void buy() {
-       dishInCartRepo.deleteAll();
-    }
 }
