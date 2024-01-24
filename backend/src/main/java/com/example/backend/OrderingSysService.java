@@ -106,13 +106,14 @@ public class OrderingSysService {
        dishInCartRepo.deleteById(id);
     }
 
-    public DishInCart changeQuantity(String id, int quantity) {
-        Optional<DishInCart> optionalDishInCart = dishInCartRepo.findById(id);
-        DishInCart selectedDishInCart = optionalDishInCart.get();
-        float onePiecePrice = selectedDishInCart.getOnePiecePrice();
-        selectedDishInCart.setAmount(quantity);
-        selectedDishInCart.setTotalPrice(onePiecePrice * quantity);
-        return dishInCartRepo.save(selectedDishInCart);
+    public DishInCart changeQuantity(DishInCartDTO dishInCartDTO){
+        int dishId = dishInCartDTO.getDishId();
+        List<DishInCart> allByDishIdIs = dishInCartRepo.findAllByDishIdIs(dishId);
+        DishInCart selectd = allByDishIdIs.get(0);
+        int updatedAmount = dishInCartDTO.getAmount();
+        selectd.setAmount(updatedAmount);
+        selectd.setTotalPrice(selectd.getOnePiecePrice()*updatedAmount);
+        return dishInCartRepo.save(selectd);
     }
 
     public Order creatOrder() {

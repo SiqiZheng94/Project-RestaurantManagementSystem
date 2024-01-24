@@ -1,7 +1,8 @@
 import {Button, InputNumber, Select, Space, Table, Tag, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
-import {deleteDishInCartApi, getAllDishesApi, getAllDishesInCartApi} from "../API";
+import {changeQuantityApi, deleteDishInCartApi, getAllDishesApi, getAllDishesInCartApi} from "../API";
+import {DishInCartDTO} from "../model/DishInCartDTO.ts";
 
 export default function Cart(){
     const [dataSource, setDataSource] = useState<DishInCart[]>([]);
@@ -31,9 +32,34 @@ export default function Cart(){
             })
     }
 
-    function handleQuantityChange(record: DishInCart, value: ValueType | null) {
+    function handleQuantityChange(id: number, newAmount: number) {
+        const dishInCartDto: DishInCartDTO = {
+            dishId: id,
+            amount: newAmount,
+        };
 
+        changeQuantityApi(dishInCartDto)
+            .then((response) => {
+                    // 更新dataSource中的数量
+                    const updatedDataSource = dataSource.map((dishInCartDto) => {
+                        if (dishInCartDto.dishId === id) {
+                            return {
+                                ...dishInCartDto,
+                                amount: newAmount,
+                                totalPrice: dishInCartDto.onePiecePrice * newAmount,
+                            };
+                        }
+                        return dishInCartDto;
+                    });
+
+                    // 设置新的dataSource
+                    setDataSource(updatedDataSource);
+            })
+            .catch((error) => {
+                console.error("Error updating quantity:", error);
+            });
     }
+
 
     const columns = [
     {
@@ -51,7 +77,7 @@ export default function Cart(){
             <InputNumber
                 min={1}
                 value={record.amount}
-                onChange={(value) => handleQuantityChange(record, value)}
+                onChange={(newAmount) => handleQuantityChange(record.dishId, newAmount)}
             />
         ),
     },

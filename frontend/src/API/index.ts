@@ -28,3 +28,6 @@ export const getAllDishesInCartApi = ()=>{
 export const deleteDishInCartApi = (id:string)=>{
     return axios.delete("api/user/shoppingCart/delete/" + id)
 }
+export const changeQuantityApi = (dishInCartDto:DishInCartDTO)=>{
+    return axios.put("api/user/shoppingCart/update", dishInCartDto)
+}
