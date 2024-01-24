@@ -28,6 +28,10 @@ public class UserController {
     public List<DishInCart> getAllDishesInCart(){
         return service.getAllDishesInCart();
     }
+    @DeleteMapping("/shoppingCart/delete/{id}")
+        public void deleteDishInCart(@PathVariable String id){
+        service.deleteDishInCart(id);
+    }
     @GetMapping("/order")
     public Order creatOrder() {
         return service.creatOrder();

@@ -102,6 +102,10 @@ public class OrderingSysService {
        return dishInCartRepo.findAll();
     }
 
+    public void deleteDishInCart(String id) {
+       dishInCartRepo.deleteById(id);
+    }
+
     public Order creatOrder() {
        Order newOrder = new Order(
                null,
@@ -115,4 +119,6 @@ public class OrderingSysService {
     public void buy() {
        dishInCartRepo.deleteAll();
     }
+
+
 }

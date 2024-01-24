@@ -18,10 +18,13 @@ export const getAllFilteredDishesApi = (params)=>{
 export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
 }
-// User
+// Customer
 export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
     return axios.post("api/user/shoppingCart/add", dishInCartDto)
 }
 export const getAllDishesInCartApi = ()=>{
     return axios.get("api/user/shoppingCart")
+}
+export const deleteDishInCartApi = (id:string)=>{
+    return axios.delete("api/user/shoppingCart/delete/" + id)
 }
