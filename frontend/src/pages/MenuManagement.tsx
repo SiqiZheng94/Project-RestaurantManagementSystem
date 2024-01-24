@@ -165,7 +165,7 @@ export default function MenuManagement() {
 
     return (
         <div>
-            <div className="SearchAndAdd" style={{ marginBottom: 16 }}>
+            <div className="MultipleElementsInaRow" style={{ marginBottom: 16 }}>
                 <div>
                 Category:
                 <Select

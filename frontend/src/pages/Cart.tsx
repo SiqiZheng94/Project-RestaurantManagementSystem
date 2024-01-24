@@ -82,6 +82,15 @@ export default function Cart(){
         }
     }
 
+    // 计算总和函数
+    function calculateTotalAmount() {
+        let total = 0;
+        for (const dish of dataSource) {
+            total += parseFloat(dish.totalPrice);
+        }
+        return total.toFixed(2);
+    }
+
     const columns = [
     {
         title: "Name",
@@ -130,10 +139,9 @@ export default function Cart(){
                     key: dish.dishId.toString(),
                 }))}
             />
-            <div>
-                <Typography.Text>Total: </Typography.Text>
-                <Button className="submit-button"
-                onClick={() => creatOrderAndLeerCart()}>Payment</Button>
+            <div className="MultipleElementsInaRow">
+                <Typography.Title level={5}>Total: {calculateTotalAmount()}€</Typography.Title>
+                <Button className="submit-button" onClick={() => creatOrderAndLeerCart()}>Payment</Button>
             </div>
 
         </>

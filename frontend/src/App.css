@@ -40,9 +40,10 @@
 .pageContentHeader{
   display: flex;
 }
-.SearchAndAdd{
+.MultipleElementsInaRow{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 20px 0 20px 8px;
 }
 
