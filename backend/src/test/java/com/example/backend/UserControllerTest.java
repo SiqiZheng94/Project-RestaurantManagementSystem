@@ -35,7 +35,7 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @Test
-    void addDishInCart_shouldReturnDishInCart () throws Exception {
+    void add10DishesInCart_shouldReturn20DishesInCart () throws Exception {
         // add a dish in DB
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);

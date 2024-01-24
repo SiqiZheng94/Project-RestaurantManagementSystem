@@ -106,6 +106,15 @@ public class OrderingSysService {
        dishInCartRepo.deleteById(id);
     }
 
+    public DishInCart changeQuantity(String id, int quantity) {
+        Optional<DishInCart> optionalDishInCart = dishInCartRepo.findById(id);
+        DishInCart selectedDishInCart = optionalDishInCart.get();
+        float onePiecePrice = selectedDishInCart.getOnePiecePrice();
+        selectedDishInCart.setAmount(quantity);
+        selectedDishInCart.setTotalPrice(onePiecePrice * quantity);
+        return dishInCartRepo.save(selectedDishInCart);
+    }
+
     public Order creatOrder() {
        Order newOrder = new Order(
                null,
@@ -119,6 +128,4 @@ public class OrderingSysService {
     public void buy() {
        dishInCartRepo.deleteAll();
     }
-
-
 }

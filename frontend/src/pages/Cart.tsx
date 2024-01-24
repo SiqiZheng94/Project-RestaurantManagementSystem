@@ -27,7 +27,12 @@ export default function Cart(){
         deleteDishInCartApi(id)
             .catch((error) => {
                 console.error("Error fetching data:", error);
+                setLoading(false);
             })
+    }
+
+    function handleQuantityChange(record: DishInCart, value: ValueType | null) {
+
     }
 
     const columns = [
@@ -46,7 +51,7 @@ export default function Cart(){
             <InputNumber
                 min={1}
                 value={record.amount}
-                // onChange={(value) => handleQuantityChange(record, value)}
+                onChange={(value) => handleQuantityChange(record, value)}
             />
         ),
     },
