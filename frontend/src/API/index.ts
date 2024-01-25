@@ -14,9 +14,11 @@ export const updateThisDishApi = (id:string, updatedDishDto:DishDTO)=>{
 export const getAllFilteredDishesApi = (params)=>{
     return axios.get("api/admin/menu/filter", {params: params })
 }
-
 export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
+}
+export const getAllOrdersApi = ()=>{
+    return axios.get("api/admin/orders")
 }
 // Customer
 export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{

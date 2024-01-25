@@ -23,6 +23,8 @@ public class OrderingSysService {
     private final DishRepo dishRepo;
     private final DishInCartRepo dishInCartRepo;
     private final OrderRepo orderRepo;
+
+    // Admin
    public List<Dish> getAllDishes(){
        return dishRepo.findAll();
    }
@@ -74,6 +76,11 @@ public class OrderingSysService {
        return dishRepo.findAllByAvailability(availability);
     }
 
+    public List<Order> getAllOrders() {
+       return orderRepo.findAll();
+    }
+
+    // Customer
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
         List<Dish> selectedDish = dishRepo.findAllByDishId(dishInCartDTO.getDishId());
@@ -127,5 +134,4 @@ public class OrderingSysService {
        dishInCartRepo.deleteAll();
        return orderRepo.save(newOrder);
     }
-
 }

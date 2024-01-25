@@ -4,6 +4,7 @@ import com.example.backend.OrderingSysService;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.entity.Dish;
+import com.example.backend.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +37,11 @@ public class AdminController {
         service.deleteThisDish(id);
     }
 
-    @GetMapping("menu/filter")
+    @GetMapping("/menu/filter")
     public List<Dish> getAllFilteredDishes(
         @RequestParam(required = false) DishCategoryEnum category,
         @RequestParam(required = false) Boolean availability
-) {
+    ){
             if (category != null && availability != null) {
                 return service.getAllDishesByCategoryAndAvailability(category, availability);
             } else if (category != null) {
@@ -50,5 +51,11 @@ public class AdminController {
             } else {
                 return service.getAllDishes();
             }
-        }
+    }
+
+    @GetMapping("/orders")
+    public List<Order> getAllOrders(){
+        return service.getAllOrders();
+    }
+
 }
