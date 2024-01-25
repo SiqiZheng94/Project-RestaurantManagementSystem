@@ -1,11 +1,10 @@
-import {Button, InputNumber, Select, Space, Table, Tag, Typography} from "antd";
+import {Button, InputNumber, Space, Table, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
 import {
     changeQuantityApi,
     creatOrderAndLeerCartApi,
     deleteDishInCartApi,
-    getAllDishesApi,
     getAllDishesInCartApi
 } from "../API";
 import {DishInCartDTO} from "../model/DishInCartDTO.ts";
@@ -45,8 +44,7 @@ export default function Cart(){
         };
 
         changeQuantityApi(dishInCartDto)
-            .then((response) => {
-                    // 更新dataSource中的数量
+            .then(() => {
                     const updatedDataSource = dataSource.map((dishInCartDto) => {
                         if (dishInCartDto.dishId === id) {
                             return {
@@ -58,7 +56,6 @@ export default function Cart(){
                         return dishInCartDto;
                     });
 
-                    // 设置新的dataSource
                     setDataSource(updatedDataSource);
             })
             .catch((error) => {
@@ -68,13 +65,10 @@ export default function Cart(){
 
     async function creatOrderAndLeerCart() {
         try {
-            // 执行支付逻辑，并等待完成
             await creatOrderAndLeerCartApi();
 
-            // 更新数据源或重新加载数据
             const response = await getAllDishesInCartApi();
             setDataSource(response.data);
-
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
@@ -82,11 +76,10 @@ export default function Cart(){
         }
     }
 
-    // 计算总和函数
     function calculateTotalAmount() {
         let total = 0;
         for (const dish of dataSource) {
-            total += parseFloat(dish.totalPrice);
+            total += dish.totalPrice;
         }
         return total.toFixed(2);
     }
@@ -114,8 +107,8 @@ export default function Cart(){
     {
         title: "Total Amount",
         dataIndex: "totalPrice",
-        render: (text, record) => (
-            <span>{parseFloat(record.totalPrice).toFixed(2)}</span>
+        render: (text, record: DishInCart) => (
+            <span>{record.totalPrice.toFixed(2)}</span>
         ),
     },
     {
@@ -143,8 +136,6 @@ export default function Cart(){
                 <Typography.Title level={5}>Total: {calculateTotalAmount()}€</Typography.Title>
                 <Button className="submit-button" onClick={() => creatOrderAndLeerCart()}>Payment</Button>
             </div>
-
         </>
-
     )
 }
