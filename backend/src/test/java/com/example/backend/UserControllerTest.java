@@ -30,6 +30,7 @@ import static org.junit.Assert.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class UserControllerTest {
     private final String BASE_URL = "/api/user";
     @Autowired
@@ -58,7 +59,7 @@ class UserControllerTest {
         DishInCart expect = new DishInCart(dishAlreadyInCart.get_id(),dishAlreadyInCart.getDishId(),dishAlreadyInCart.getName(),
                 dishAlreadyInCart.getDescription(),new BigDecimal("20"),savedDish.price(),dishAlreadyInCart.getOnePiecePrice().multiply(new BigDecimal("20")));
         String expectJson = objectMapper.writeValueAsString(expect);
-
+        // add
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/shoppingCart/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(dishInCartDtoJson))
@@ -86,7 +87,7 @@ class UserControllerTest {
         // change the quantity of this dish in cart to 1
         DishInCartDTO updateDishInCartDTO = new DishInCartDTO(dishAlreadyInCart.getDishId(), new BigDecimal("1"));
         String updateDishInCartDTOJson = objectMapper.writeValueAsString(updateDishInCartDTO);
-
+        // update
         mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/shoppingCart/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updateDishInCartDTOJson))
@@ -115,8 +116,6 @@ class UserControllerTest {
                         .content(dishInCartDtoJson))
                 .andReturn();
         DishInCart dishAlreadyInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
-
-
         // payment
         MvcResult resultOrder = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart/payment"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -136,6 +135,35 @@ class UserControllerTest {
         Assertions.assertEquals("OPEN", order.status());
         Assertions.assertEquals(List.of(dishAlreadyInCart), order.dishesInCart());
     }
-
+    @Test
+    void deleteTheOnlyDishInCart_shouldReturnEmptyCart() throws Exception {
+        // add a dish in DB
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/admin/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+        // add 10 * dish in cart
+        DishInCartDTO dishInCartDTO = new DishInCartDTO(savedDish.dishId(), new BigDecimal("10"));
+        String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/shoppingCart/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishInCartDtoJson))
+                .andReturn();
+        DishInCart dishAlreadyInCart = objectMapper.readValue(result.getResponse().getContentAsString(), DishInCart.class);
+        // delete
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/shoppingCart/delete/" + dishAlreadyInCart.get_id()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        // shoppingCard should be empty
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/shoppingCart"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                        []
+                    """
+                ));
+    }
 }
 
