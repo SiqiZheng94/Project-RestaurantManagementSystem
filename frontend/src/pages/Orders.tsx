@@ -37,6 +37,11 @@ function Orders () {
         {
             title: "Total Amount",
             dataIndex: "totalPriceSum",
+            render: (text) => (
+                <span>
+                    {text} €
+                </span>
+            ),
         },
         {
             title: "Action",
