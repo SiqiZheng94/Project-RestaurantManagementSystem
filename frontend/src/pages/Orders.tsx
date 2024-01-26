@@ -2,9 +2,10 @@ import {Button, Space, Table, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
 import {getAllOrdersApi} from "../API";
+import {Order} from "../model/Order.ts";
 
 function Orders () {
-    const [dataSource, setDataSource] = useState<DishInCart[]>([]);
+    const [dataSource, setDataSource] = useState<Order[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ function Orders () {
         },
         {
             title: "Total Amount",
-            dataIndex: "totalPrice",
+            dataIndex: "totalPriceSum",
         },
         {
             title: "Action",

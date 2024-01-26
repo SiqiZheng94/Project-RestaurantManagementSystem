@@ -3,11 +3,13 @@ package com.example.backend.controller;
 import com.example.backend.OrderingSysService;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
+import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -57,5 +59,8 @@ public class AdminController {
     public List<Order> getAllOrders(){
         return service.getAllOrders();
     }
-
+    @GetMapping("/test")
+    public BigDecimal test(){
+        return  service.test();
+    }
 }

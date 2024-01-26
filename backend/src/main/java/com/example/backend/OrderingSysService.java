@@ -3,6 +3,7 @@ package com.example.backend;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
+import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
@@ -124,14 +125,18 @@ public class OrderingSysService {
         return dishInCartRepo.save(selectd);
     }
 
-    public Order creatOrderAndLeerCart() {
+    public Order creatOrderAndEmptyCart() {
        Order newOrder = new Order(
                null,
                LocalDateTime.now(),
                "OPEN",
-               dishInCartRepo.findAll()
+               dishInCartRepo.findAll(),
+               dishInCartRepo.computeTotalPriceSum().getTotalPriceSum()
        );
        dishInCartRepo.deleteAll();
        return orderRepo.save(newOrder);
+    }
+    public BigDecimal test(){
+       return dishInCartRepo.computeTotalPriceSum().getTotalPriceSum();
     }
 }

@@ -38,7 +38,7 @@ public class UserController {
     }
     @GetMapping("/shoppingCart/payment")
     public Order creatOrderAndLeerCart() {
-        return service.creatOrderAndLeerCart();
+        return service.creatOrderAndEmptyCart();
     }
 
 }
