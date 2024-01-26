@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DishInCartDTO {
     int dishId;
-    int amount;
+    BigDecimal amount;
 }

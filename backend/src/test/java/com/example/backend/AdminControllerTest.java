@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.backend.commen.DishCategoryEnum.DRINK;
@@ -43,7 +44,7 @@ class AdminControllerTest {
 
     @Test
     void updateThisDish_whenUpdateSavedDish_shouldReturnUpdatedDish () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -51,7 +52,7 @@ class AdminControllerTest {
                 .andReturn();
         Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
 
-        DishDTO updateDishDto = new DishDTO(DishCategoryEnum.FRY, "Test", "Test", 1.00F, false, false);
+        DishDTO updateDishDto = new DishDTO(DishCategoryEnum.FRY, "Test", "Test", new BigDecimal("1"), false, false);
         String updateDishDtoJson = objectMapper.writeValueAsString(updateDishDto);
         MvcResult updateResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL+"/menu/update/" + savedDish._id())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -59,13 +60,13 @@ class AdminControllerTest {
                 .andReturn();
         Dish updatedDish = objectMapper.readValue(updateResult.getResponse().getContentAsString(), Dish.class);
 
-        Dish expectedDish = new Dish(savedDish._id(), DishCategoryEnum.FRY, "Test", "Test", 1.00F, false, false,savedDish.dishId(), savedDish.imageURL());
+        Dish expectedDish = new Dish(savedDish._id(), DishCategoryEnum.FRY, "Test", "Test", new BigDecimal("1"), false, false,savedDish.dishId(), savedDish.imageURL());
         Assertions.assertEquals(updatedDish, expectedDish);
     }
 
     @Test
     void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +84,7 @@ class AdminControllerTest {
 
     @Test
     void getAllFilteredDishes_whenCategoryIsDRINKAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -100,7 +101,7 @@ class AdminControllerTest {
 
     @Test
     void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsTrue_shouldReturnExpectedDish () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -117,7 +118,7 @@ class AdminControllerTest {
 
     @Test
     void getAllFilteredDishes_whenCategoryIsNotDefinedAndAvailabilityIsNotDefined_shouldReturnExpectedDish () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -133,7 +134,7 @@ class AdminControllerTest {
 
     @Test
     void deleteThisDish_shouldReturnEmptyList () throws Exception {
-        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", 5.00F, true, true);
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
                         .contentType(MediaType.APPLICATION_JSON)

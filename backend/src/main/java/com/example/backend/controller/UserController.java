@@ -28,12 +28,17 @@ public class UserController {
     public List<DishInCart> getAllDishesInCart(){
         return service.getAllDishesInCart();
     }
-    @GetMapping("/order")
-    public Order creatOrder() {
-        return service.creatOrder();
+    @DeleteMapping("/shoppingCart/delete/{id}")
+        public void deleteDishInCart(@PathVariable String id){
+        service.deleteDishInCart(id);
     }
-    @DeleteMapping("/buy")
-    public void pay(){
-        service.buy();
+    @PutMapping("/shoppingCart/update")
+    public DishInCart changeQuantity(@RequestBody DishInCartDTO dishInCartDTO){
+        return service.changeQuantity(dishInCartDTO);
     }
+    @GetMapping("/shoppingCart/payment")
+    public Order creatOrderAndLeerCart() {
+        return service.creatOrderAndLeerCart();
+    }
+
 }
