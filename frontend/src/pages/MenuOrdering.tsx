@@ -2,7 +2,7 @@ import { Dish } from "../model/Dish.ts";
 import {useState} from "react";
 import { addDishInCartApi } from "../API";
 import { DishInCartDTO } from "../model/DishInCartDTO.ts";
-import MenuCard from "../components/Menu/MenuCard.tsx";
+import MenuCard from "../components/MenuCard.tsx";
 import {Typography} from "antd";
 
 type MenuOrderingProps = {

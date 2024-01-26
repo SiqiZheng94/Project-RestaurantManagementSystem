@@ -9,7 +9,7 @@ import {
 import {Space, Table, Tag, Modal, Button, Select} from "antd";
 import { Dish } from "../model/Dish.ts";
 import {DishDTO} from "../model/DishDTO.ts";
-import DishForm from "../components/Menu/DishForm.tsx";
+import DishForm from "../components/DishForm.tsx";
 
 
 
@@ -154,7 +154,7 @@ export default function MenuManagement() {
         },
         {
             title: "Action",
-            render: (text: string, record: Dish) => (
+            render: (record: Dish) => (
                 <Space size="middle">
                     <Button onClick={() => showEditModal(record)}>Edit</Button>
                     <Button onClick={() => deleteThisItem(record._id)}>Delete</Button>

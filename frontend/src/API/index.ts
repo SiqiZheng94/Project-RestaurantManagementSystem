@@ -17,6 +17,9 @@ export const getAllFilteredDishesApi = (params)=>{
 export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
 }
+export const showOrderDetailsApi = (id:string)=>{
+    return axios.get("api/admin/orders/" + id)
+}
 export const getAllOrdersApi = ()=>{
     return axios.get("api/admin/orders")
 }

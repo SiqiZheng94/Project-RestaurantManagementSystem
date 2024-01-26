@@ -59,8 +59,8 @@ public class AdminController {
     public List<Order> getAllOrders(){
         return service.getAllOrders();
     }
-    @GetMapping("/test")
-    public BigDecimal test(){
-        return  service.test();
+    @GetMapping("/orders/{id}")
+    public Order getOrderById(@PathVariable String id){
+        return service.geOrderById(id);
     }
 }

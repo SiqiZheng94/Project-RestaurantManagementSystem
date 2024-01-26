@@ -81,6 +81,10 @@ public class OrderingSysService {
        return orderRepo.findAll();
     }
 
+    public Order geOrderById(String id) {
+       return orderRepo.findById(id).get();
+    }
+
     // Customer
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
@@ -136,7 +140,5 @@ public class OrderingSysService {
        dishInCartRepo.deleteAll();
        return orderRepo.save(newOrder);
     }
-    public BigDecimal test(){
-       return dishInCartRepo.computeTotalPriceSum().getTotalPriceSum();
-    }
+
 }

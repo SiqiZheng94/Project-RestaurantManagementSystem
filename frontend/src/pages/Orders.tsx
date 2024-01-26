@@ -1,13 +1,15 @@
-import {Button, Space, Table, Typography} from "antd";
+import {Button, Modal, Space, Table, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
-import {getAllOrdersApi} from "../API";
+import {getAllOrdersApi, showOrderDetailsApi} from "../API";
 import {Order} from "../model/Order.ts";
+import {Dish} from "../model/Dish.ts";
 
 function Orders () {
     const [dataSource, setDataSource] = useState<Order[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-
+    const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
+    const [showingOrderDetails, setShowingOrderDetails] = useState<Order | null>(null);
     useEffect(() => {
         setLoading(true);
         getAllOrdersApi()
@@ -20,6 +22,15 @@ function Orders () {
                 setLoading(false);
             });
     }, []);
+
+    function showDetails(order: Order) {
+        setShowingOrderDetails(order);
+        setEditModalVisible(true);
+    }
+    const handleModalCancel = () => {
+        setShowingOrderDetails(null);
+        setEditModalVisible(false);
+    };
 
     const columns = [
         {
@@ -47,13 +58,13 @@ function Orders () {
             title: "Action",
             render: (record: DishInCart) => (
                 <Space size="middle">
-                    <Button >Detail</Button>
+                    <Button onClick={() => showDetails(record)}>Detail</Button>
                 </Space>
             ),
         },
     ];
     return (
-        <>
+        <div>
             <Typography.Title level={4}>Orders</Typography.Title>
             <Table
                 columns={columns}
@@ -63,7 +74,15 @@ function Orders () {
                     key: order._id,
                 }))}
             />
-        </>
+            <Modal
+                title="Order Details"
+                open={editModalVisible}
+                onCancel={handleModalCancel}
+                // footer={null}
+            >
+
+            </Modal>
+        </div>
     )
 }
 export default Orders
