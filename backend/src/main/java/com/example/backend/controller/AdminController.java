@@ -59,8 +59,9 @@ public class AdminController {
     public List<Order> getAllOrders(){
         return service.getAllOrders();
     }
-    @GetMapping("/orders/{id}")
-    public Order getOrderById(@PathVariable String id){
-        return service.geOrderById(id);
+
+    @PutMapping("/orders/update-status/{id}")
+    public Order updateOrderStatus(@PathVariable String id){
+        return service.updateOrderStatus(id);
     }
 }

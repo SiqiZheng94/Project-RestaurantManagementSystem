@@ -23,6 +23,9 @@ export const showOrderDetailsApi = (id:string)=>{
 export const getAllOrdersApi = ()=>{
     return axios.get("api/admin/orders")
 }
+export const updateOrderStatusApi = (id:string)=>{
+    return axios.put("api/admin/orders/update-status/" + id)
+}
 // Customer
 export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
     return axios.post("api/user/shoppingCart/add", dishInCartDto)
@@ -39,3 +42,4 @@ export const changeQuantityApi = (dishInCartDto:DishInCartDTO)=>{
 export const creatOrderAndLeerCartApi = ()=>{
     return axios.get("api/user/shoppingCart/payment")
 }
+

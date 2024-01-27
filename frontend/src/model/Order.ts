@@ -4,6 +4,6 @@ export type Order =  {
     _id: string,
     localDateTime: string,
     status: string,
-    dishesInCart: DishInCart,
+    dishesInCart: DishInCart[],
     totalPriceSum: number,
 }

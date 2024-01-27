@@ -145,9 +145,9 @@ export default function MenuManagement() {
             render: (availability: boolean) => (
                 <>
                     {availability ? (
-                        <Tag color={"green"}>YES</Tag>
+                        <Tag color={"green"}>Yes</Tag>
                     ) : (
-                        <Tag color={"red"}>NO</Tag>
+                        <Tag color={"red"}>No</Tag>
                     )}
                 </>
             ),

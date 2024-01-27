@@ -1,7 +1,7 @@
-import {Button, Modal, Space, Table, Typography} from "antd";
+import {Button, Modal, Space, Table, Tag, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
-import {getAllOrdersApi, showOrderDetailsApi} from "../API";
+import {getAllOrdersApi, showOrderDetailsApi, updateOrderStatusApi} from "../API";
 import {Order} from "../model/Order.ts";
 import {Dish} from "../model/Dish.ts";
 
@@ -9,26 +9,48 @@ function Orders () {
     const [dataSource, setDataSource] = useState<Order[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-    const [showingOrderDetails, setShowingOrderDetails] = useState<Order | null>(null);
-    useEffect(() => {
+
+    // 新增一个状态来保存当前选中的订单
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+    function fetchOrders() {
         setLoading(true);
         getAllOrdersApi()
-            .then(response => {
-                setDataSource(response.data);
+            .then((response) => {
+                // 使用sort方法按订单时间逆序排序
+                const sortedData = response.data.sort((a, b) => {
+                    return new Date(b.localDateTime) - new Date(a.localDateTime);
+                });
+                setDataSource(sortedData);
                 setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
                 setLoading(false);
             });
+    }
+    useEffect(() => {
+        fetchOrders();
     }, []);
 
+    function updateOrderStatus(id: string){
+        updateOrderStatusApi(id)
+            .then(() => {
+                // 更新订单状态后，再次获取订单数据
+                fetchOrders();
+                setEditModalVisible(false);
+            })
+            .catch((error) => {
+                console.error("Error updating order status:", error);
+            });
+    }
+
     function showDetails(order: Order) {
-        setShowingOrderDetails(order);
+        setSelectedOrder(order);
         setEditModalVisible(true);
     }
     const handleModalCancel = () => {
-        setShowingOrderDetails(null);
+        setSelectedOrder(null);
         setEditModalVisible(false);
     };
 
@@ -40,6 +62,13 @@ function Orders () {
         {
             title: "Status",
             dataIndex: "status",
+            render: (status: string) => (
+                <>
+                    {status==="OPEN" && <Tag color={"volcano"}>Open</Tag>}
+                    {status==="IN PROGRESS" && <Tag color={"processing"}>In Progress</Tag>}
+                    {status==="FINISHED" && <Tag color={"default"}>Finished</Tag>}
+                </>
+            ),
         },
         {
             title: "Order Time",
@@ -48,15 +77,11 @@ function Orders () {
         {
             title: "Total Amount",
             dataIndex: "totalPriceSum",
-            render: (text) => (
-                <span>
-                    {text} €
-                </span>
-            ),
+            render: (text: string) => (<span>{text} €</span>),
         },
         {
             title: "Action",
-            render: (record: DishInCart) => (
+            render: (record: Order) => (
                 <Space size="middle">
                     <Button onClick={() => showDetails(record)}>Detail</Button>
                 </Space>
@@ -78,9 +103,53 @@ function Orders () {
                 title="Order Details"
                 open={editModalVisible}
                 onCancel={handleModalCancel}
-                // footer={null}
+                footer={null}
             >
-
+                {selectedOrder && (
+                    <div>
+                        {/* 在 modal 中渲染订单的详细信息 */}
+                        <p>ID: {selectedOrder._id}</p>
+                        <p>Status: {selectedOrder.status}</p>
+                        <p>Order Time: {selectedOrder.localDateTime}</p>
+                        <p>Total Amount: {selectedOrder.totalPriceSum} €</p>
+                        {/* 渲染选定的菜肴列表 */}
+                        <p>Selected Dishes:</p>
+                        <Table
+                            columns={[
+                                {
+                                    title: "Dish ID",
+                                    dataIndex: "dishId",
+                                    key: "dishId",
+                                },
+                                {
+                                    title: "Name",
+                                    dataIndex: "name",
+                                    key: "name",
+                                },
+                                {
+                                    title: "Amount",
+                                    dataIndex: "amount",
+                                    key: "amount",
+                                },
+                                {
+                                    title: "Price",
+                                    dataIndex: "totalPrice",
+                                    key: "totalPrice",
+                                    render: (text) => <span>{text} €</span>,
+                                },
+                            ]}
+                            dataSource={selectedOrder.dishesInCart.map((dish) => ({
+                                key: dish._id,
+                                dishId: dish.dishId,
+                                name: dish.name,
+                                amount: dish.amount,
+                                totalPrice: dish.totalPrice,
+                            }))}
+                        />
+                        {selectedOrder.status==="OPEN" && <button onClick={()=>updateOrderStatus(selectedOrder._id)}>Prepare Order</button>}
+                        {selectedOrder.status==="IN PROGRESS" && <button onClick={()=>updateOrderStatus(selectedOrder._id)}>Finish Order</button>}
+                    </div>
+                )}
             </Modal>
         </div>
     )
