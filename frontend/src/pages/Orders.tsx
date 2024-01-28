@@ -1,9 +1,8 @@
 import {Button, Modal, Space, Table, Tag, Typography} from "antd";
-import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
-import {getAllOrdersApi, showOrderDetailsApi, updateOrderStatusApi} from "../API";
+import {getAllOrdersApi, updateOrderStatusApi} from "../API";
 import {Order} from "../model/Order.ts";
-import {Dish} from "../model/Dish.ts";
+import { format } from "date-fns";
 
 function Orders () {
     const [dataSource, setDataSource] = useState<Order[]>([]);
@@ -54,6 +53,12 @@ function Orders () {
         setEditModalVisible(false);
     };
 
+    function formatLocalDateTime(localDateTime: string): string {
+        const date = new Date(localDateTime);
+        return format(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
+
     const columns = [
         {
             title: "ID",
@@ -73,6 +78,7 @@ function Orders () {
         {
             title: "Order Time",
             dataIndex: "localDateTime",
+            render: (localDateTime: string) => formatLocalDateTime(localDateTime),
         },
         {
             title: "Total Amount",
