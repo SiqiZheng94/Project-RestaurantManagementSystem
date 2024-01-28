@@ -16,6 +16,7 @@ import {Dish} from "./model/Dish.ts";
 import {getAllDishesApi} from "./API";
 import Home from "./pages/Home.tsx";
 import Cart from "./pages/Cart.tsx";
+import Login from "./pages/Login.tsx";
 
 
 
@@ -47,15 +48,13 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/admin" element={<Dashboard />}></Route>
-            <Route path="/inventory" element={<Inventory />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
             <Route path="/orders" element={<Orders />}></Route>
-            <Route path="/customers" element={<Customers />}></Route>
             <Route path="/menu-management" element={<MenuManagement />}></Route>
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/" element={<Home />}></Route>
-
+            <Route path="/login" element={<Login />}></Route>
         </Routes>
       </Space>
       <AppFooter />

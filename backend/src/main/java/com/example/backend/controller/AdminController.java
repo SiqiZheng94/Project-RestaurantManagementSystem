@@ -6,6 +6,10 @@ import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
+import com.example.backend.entity.User;
+import com.example.backend.util.JwtUtil;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,5 +67,26 @@ public class AdminController {
     @PutMapping("/orders/update-status/{id}")
     public Order updateOrderStatus(@PathVariable String id){
         return service.updateOrderStatus(id);
+    }
+
+    private final String USERNAME = "admin";
+    private final String PASSWORD = "123456";
+    @PostMapping("/login")
+    public User login(@RequestBody User user){
+        if(USERNAME.equals(user.getUsername()) && PASSWORD.equals(user.getPassword())){
+            user.setToken(JwtUtil.createToken());
+            return user;
+        }
+        return null;
+    }
+    // test if the token is expired
+//    @GetMapping("check-token")
+//    public boolean checkToken(String token) {
+//        return JwtUtil.checkToken(token);
+//    }
+    @GetMapping("check-token")
+    public boolean checkToken(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return JwtUtil.checkToken(token);
     }
 }

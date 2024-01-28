@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
+import Login from "../pages/Login.tsx";
 
 function SideMenu() {
     const navigate = useNavigate();
@@ -20,28 +21,22 @@ function SideMenu() {
                     {
                         label: "Dashboard",
                         icon: <AppstoreOutlined />,
-                        key: '/admin',
+                        key: '/dashboard',
+                    },
+                    {
+                        label: "Admin Login",
+                        icon: <UserOutlined />,
+                        key: '/login',
                     },
                     {
                         label: "Menu Management",
                         icon: <ShopOutlined />,
                         key: '/menu-management',
                     },
-
-                    {
-                        label: "Inventory",
-                        icon: <ShopOutlined />,
-                        key: '/inventory',
-                    },
                     {
                         label: "Orders",
                         icon: <ShoppingCartOutlined />,
                         key: '/orders',
-                    },
-                    {
-                        label: "Customers",
-                        icon: <UserOutlined />,
-                        key: '/customers',
                     },
                     {
                         label: "Menu Ordering",

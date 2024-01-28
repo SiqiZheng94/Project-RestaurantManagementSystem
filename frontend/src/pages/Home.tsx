@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 export default function Home(){
     const navigate = useNavigate();
     const openAdminDashboard = ()=>{
-        navigate("/admin");
+        navigate("/login");
     }
     const openUserDashboard = ()=>{
         navigate("/menu-ordering");
