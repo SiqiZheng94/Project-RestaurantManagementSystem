@@ -17,6 +17,7 @@ import {getAllDishesApi} from "./API";
 import Home from "./pages/Home.tsx";
 import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
+import AuthGuard from "./components/AuthGuard.tsx";
 
 
 
@@ -35,6 +36,7 @@ function App() {
                 setLoading(false);
             });
     }
+
 
     useEffect(() => {
         setLoading(true);

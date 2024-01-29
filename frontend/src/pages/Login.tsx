@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 interface User {
     username: string;
@@ -8,10 +9,12 @@ interface User {
 
 const Login: React.FC = () => {
     const [user, setUser] = useState<User>({
-        username: 'admin',  // 设置用户名为 'admin'
-        password: '123456', // 设置密码为 '123456'
+        username: 'admin',
+        password: '123456',
         token: null,
     });
+
+    const navigate = useNavigate();
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -36,7 +39,9 @@ const Login: React.FC = () => {
                 const data = await response.json();
                 if (data.token) {
                     setUser({ ...user, token: data.token });
+                    localStorage.setItem('access-admin', JSON.stringify(data));
                     alert('Login successful!');
+                    navigate("/dashboard");
                     // 在这里可以添加重定向或其他操作
                 } else {
                     alert('Login failed. Please check your credentials.');

@@ -84,7 +84,7 @@ public class AdminController {
 //    public boolean checkToken(String token) {
 //        return JwtUtil.checkToken(token);
 //    }
-    @GetMapping("check-token")
+    @GetMapping("/check-token")
     public boolean checkToken(HttpServletRequest request) {
         String token = request.getHeader("token");
         return JwtUtil.checkToken(token);
