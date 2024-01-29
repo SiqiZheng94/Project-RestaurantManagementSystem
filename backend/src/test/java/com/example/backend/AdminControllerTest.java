@@ -193,5 +193,11 @@ class AdminControllerTest {
                 .andReturn();
         Order updatedOrder2 = objectMapper.readValue(updatedOrderResult2.getResponse().getContentAsString(), Order.class);
         Assertions.assertEquals("FINISHED", updatedOrder2.status());
+
+        MvcResult updatedOrderResult3 = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/orders/update-status/" + newOrder._id()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        Order updatedOrder3 = objectMapper.readValue(updatedOrderResult3.getResponse().getContentAsString(), Order.class);
+        Assertions.assertEquals("FINISHED", updatedOrder3.status());
     }
 }
