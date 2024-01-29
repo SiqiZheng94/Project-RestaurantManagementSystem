@@ -8,15 +8,13 @@ function Orders () {
     const [dataSource, setDataSource] = useState<Order[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-
-    // 新增一个状态来保存当前选中的订单
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     function fetchOrders() {
         setLoading(true);
         getAllOrdersApi()
             .then((response) => {
-                // 使用sort方法按订单时间逆序排序
+                // Use the sort method to sort the orders in reverse chronological order.
                 const sortedData = response.data.sort((a, b) => {
                     return new Date(b.localDateTime) - new Date(a.localDateTime);
                 });
@@ -35,7 +33,6 @@ function Orders () {
     function updateOrderStatus(id: string){
         updateOrderStatusApi(id)
             .then(() => {
-                // 更新订单状态后，再次获取订单数据
                 fetchOrders();
                 setEditModalVisible(false);
             })
@@ -113,12 +110,10 @@ function Orders () {
             >
                 {selectedOrder && (
                     <div>
-                        {/* 在 modal 中渲染订单的详细信息 */}
                         <p>ID: {selectedOrder._id}</p>
                         <p>Status: {selectedOrder.status}</p>
                         <p>Order Time: {selectedOrder.localDateTime}</p>
                         <p>Total Amount: {selectedOrder.totalPriceSum} €</p>
-                        {/* 渲染选定的菜肴列表 */}
                         <p>Selected Dishes:</p>
                         <Table
                             columns={[
