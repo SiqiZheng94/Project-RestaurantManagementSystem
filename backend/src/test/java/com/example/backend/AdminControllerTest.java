@@ -163,7 +163,7 @@ class AdminControllerTest {
     }
 
     @Test
-    void updateOrderStatus_whenOpenReturnInProcess_whenInProcessReturnFinished() throws Exception {
+    void updateOrderStatus_whenOpenReturnInProcess_whenInProcessReturnFinished_whenFinishedReturnFinished() throws Exception {
         DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
         String dishDtoJson = objectMapper.writeValueAsString(dishDto);
         MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")

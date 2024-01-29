@@ -45,7 +45,7 @@ function Orders () {
         setSelectedOrder(order);
         setEditModalVisible(true);
     }
-    const handleModalCancel = () => {
+    function handleModalCancel() {
         setSelectedOrder(null);
         setEditModalVisible(false);
     };
@@ -112,7 +112,7 @@ function Orders () {
                     <div>
                         <p>ID: {selectedOrder._id}</p>
                         <p>Status: {selectedOrder.status}</p>
-                        <p>Order Time: {selectedOrder.localDateTime}</p>
+                        <p>Order Time: {formatLocalDateTime(selectedOrder.localDateTime)}</p>
                         <p>Total Amount: {selectedOrder.totalPriceSum} €</p>
                         <p>Selected Dishes:</p>
                         <Table
