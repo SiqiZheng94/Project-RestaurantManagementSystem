@@ -23,7 +23,7 @@ import axios from "axios";
 
 function App() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
 
     const fetchData = () => {
         getAllDishesApi()
@@ -37,17 +37,15 @@ function App() {
 
     const checkToken = () => {
         const token = localStorage.getItem('token');
-        console.log("token: "+token)
         if (token) {
             axios.get('api/admin/check-token', {
                 headers: {
-                    'token': token,
+                    'token' : token
                 }
             })
                 .then(response => {
                     if (response.data) {
                         setIsLoggedIn(true);
-                        console.log("valid. isLoggedIn: "+ isLoggedIn)
                     } else {
                         setIsLoggedIn(false);
                     }
@@ -62,9 +60,12 @@ function App() {
     }
 
     useEffect(() => {
-        fetchData();
         checkToken();
-    }, []);
+        fetchData();
+
+    }, [isLoggedIn]);
+
+
 
   return (
     <div className={"App"}>
@@ -74,10 +75,11 @@ function App() {
 
         <Routes>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
 
-            <Route path="/orders" element={<Orders />}></Route>
-            <Route path="/menu-management" element={<MenuManagement />}></Route>
+            <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
+            <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
+            <Route path="/menu-management" element={<AuthGuard isAuthenticated={isLoggedIn}><MenuManagement /></AuthGuard>} />
+
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/" element={<Home />}></Route>

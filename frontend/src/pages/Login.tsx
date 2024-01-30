@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {useNavigate} from "react-router-dom";
-
-interface User {
-    username: string;
-    password: string;
-    token: string | null;
-}
+import {User} from "../model/User.ts";
 
 const Login: React.FC = () => {
     const [user, setUser] = useState<User>({
@@ -13,8 +7,6 @@ const Login: React.FC = () => {
         password: '123456',
         token: null,
     });
-
-    const navigate = useNavigate();
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -40,10 +32,12 @@ const Login: React.FC = () => {
                 if (data.token) {
                     setUser({ ...user, token: data.token });
                     // localStorage.setItem('token', JSON.stringify(data.token));
+                    // console.log(JSON.stringify(data))
                     localStorage.setItem('token', data.token);
-                    console.log(JSON.stringify(data))
+                    console.log(data.token)
                     alert('Login successful!');
-                    navigate("/dashboard");
+
+                    // navigate("/dashboard");
 
                 } else {
                     alert('Login failed. Please check your credentials.');
