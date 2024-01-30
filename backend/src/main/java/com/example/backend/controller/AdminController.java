@@ -80,10 +80,6 @@ public class AdminController {
         return null;
     }
     // test if the token is expired
-//    @GetMapping("check-token")
-//    public boolean checkToken(String token) {
-//        return JwtUtil.checkToken(token);
-//    }
     @GetMapping("/check-token")
     public boolean checkToken(HttpServletRequest request) {
         String token = request.getHeader("token");

@@ -39,10 +39,12 @@ const Login: React.FC = () => {
                 const data = await response.json();
                 if (data.token) {
                     setUser({ ...user, token: data.token });
-                    localStorage.setItem('access-admin', JSON.stringify(data));
+                    // localStorage.setItem('token', JSON.stringify(data.token));
+                    localStorage.setItem('token', data.token);
+                    console.log(JSON.stringify(data))
                     alert('Login successful!');
                     navigate("/dashboard");
-                    // 在这里可以添加重定向或其他操作
+
                 } else {
                     alert('Login failed. Please check your credentials.');
                 }
