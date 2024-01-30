@@ -53,7 +53,7 @@ export default function MenuCard(props: MenuCardProps) {
                         fontSize: "14px",
                         marginTop: "10px",
                         fontWeight: "bold",
-                        color: "#ED2939",
+                        color: "#FE6F5E",
                     }}
                 >
                     Price: {props.dish.price} €

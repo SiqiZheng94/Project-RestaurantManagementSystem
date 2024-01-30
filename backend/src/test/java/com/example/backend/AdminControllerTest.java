@@ -2,7 +2,9 @@ package com.example.backend;
 
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
+import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
+import com.example.backend.entity.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -149,5 +151,53 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().json("""
                     []
                 """));
+    }
+
+    @Test
+    void getAllOrders_whenRepositoryIsEmpty_shouldReturnEmptyList() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/orders"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                    []
+                """));
+    }
+
+    @Test
+    void updateOrderStatus_whenOpenReturnInProcess_whenInProcessReturnFinished_whenFinishedReturnFinished() throws Exception {
+        DishDTO dishDto = new DishDTO(DRINK, "Water", "Water", new BigDecimal("5"), true, true);
+        String dishDtoJson = objectMapper.writeValueAsString(dishDto);
+        MvcResult addResult = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL+"/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dishDtoJson))
+                .andReturn();
+        Dish savedDish = objectMapper.readValue(addResult.getResponse().getContentAsString(), Dish.class);
+
+        DishInCartDTO dishInCartDTO = new DishInCartDTO(savedDish.dishId(), new BigDecimal("1"));
+        String dishInCartDtoJson = objectMapper.writeValueAsString(dishInCartDTO);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/shoppingCart/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(dishInCartDtoJson));
+
+        MvcResult orderResult = mockMvc.perform((MockMvcRequestBuilders.get("/api/user/shoppingCart/payment")))
+                .andReturn();
+        Order newOrder = objectMapper.readValue(orderResult.getResponse().getContentAsString(), Order.class);
+
+        MvcResult updatedOrderResult1 = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/orders/update-status/" + newOrder._id()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        Order updatedOrder1 = objectMapper.readValue(updatedOrderResult1.getResponse().getContentAsString(), Order.class);
+        Assertions.assertEquals("IN PROGRESS", updatedOrder1.status());
+
+        MvcResult updatedOrderResult2 = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/orders/update-status/" + newOrder._id()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        Order updatedOrder2 = objectMapper.readValue(updatedOrderResult2.getResponse().getContentAsString(), Order.class);
+        Assertions.assertEquals("FINISHED", updatedOrder2.status());
+
+        MvcResult updatedOrderResult3 = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/orders/update-status/" + newOrder._id()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        Order updatedOrder3 = objectMapper.readValue(updatedOrderResult3.getResponse().getContentAsString(), Order.class);
+        Assertions.assertEquals("FINISHED", updatedOrder3.status());
     }
 }
