@@ -14,7 +14,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ isAuthenticated, children }) => {
     }
     else if (isAuthenticated) {
         return <>{children}</>;
-    } else{
+    } else {
         return (
             <Navigate to="/login" replace />
         );

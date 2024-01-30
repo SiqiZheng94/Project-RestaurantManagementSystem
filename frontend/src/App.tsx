@@ -11,7 +11,7 @@ import Orders from "./pages/Orders.tsx";
 import Customers from "./pages/Customers.tsx";
 import MenuManagement from "./pages/MenuManagement.tsx";
 import MenuOrdering from "./pages/MenuOrdering.tsx";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Dish} from "./model/Dish.ts";
 import {getAllDishesApi} from "./API";
 import Home from "./pages/Home.tsx";
@@ -19,6 +19,7 @@ import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import AuthGuard from "./components/AuthGuard.tsx";
 import axios from "axios";
+import {User} from "./model/User.ts";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
 
     const checkToken = () => {
         const token = localStorage.getItem('token');
+        console.log("token:"+token)
         if (token) {
             axios.get('api/admin/check-token', {
                 headers: {
@@ -46,6 +48,7 @@ function App() {
                 .then(response => {
                     if (response.data) {
                         setIsLoggedIn(true);
+                        console.log("valid. isLoggedIn: "+ isLoggedIn)
                     } else {
                         setIsLoggedIn(false);
                     }
@@ -59,14 +62,14 @@ function App() {
         }
     }
 
+
+
     useEffect(() => {
         checkToken();
         fetchData();
-
     }, [isLoggedIn]);
 
-
-
+    console.log("before return:"+isLoggedIn)
   return (
     <div className={"App"}>
       <AppHeader />
@@ -74,15 +77,15 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/login" element={<Login   isLogged={isLoggedIn}/>}></Route>
 
-            <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
+            {/*<Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />*/}
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
             <Route path="/menu-management" element={<AuthGuard isAuthenticated={isLoggedIn}><MenuManagement /></AuthGuard>} />
 
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/" element={<Home />}></Route>
+            {/*<Route path="/" element={<Home />}></Route>*/}
         </Routes>
       </Space>
       <AppFooter />

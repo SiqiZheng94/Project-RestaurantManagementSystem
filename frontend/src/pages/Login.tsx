@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {User} from "../model/User.ts";
 
-const Login: React.FC = () => {
+type LoginProps = {
+    isLogged : boolean | undefined;
+}
+export default function Login (props:LoginProps){
     const [user, setUser] = useState<User>({
         username: 'admin',
         password: '123456',
         token: null,
     });
+
+
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -31,13 +36,9 @@ const Login: React.FC = () => {
                 const data = await response.json();
                 if (data.token) {
                     setUser({ ...user, token: data.token });
-                    // localStorage.setItem('token', JSON.stringify(data.token));
-                    // console.log(JSON.stringify(data))
                     localStorage.setItem('token', data.token);
-                    console.log(data.token)
                     alert('Login successful!');
 
-                    // navigate("/dashboard");
 
                 } else {
                     alert('Login failed. Please check your credentials.');
@@ -50,6 +51,9 @@ const Login: React.FC = () => {
             alert('An error occurred during login. Please try again later.');
         }
     };
+
+
+
 
     return (
         <div className="container">
@@ -82,5 +86,3 @@ const Login: React.FC = () => {
         </div>
     );
 };
-
-export default Login;

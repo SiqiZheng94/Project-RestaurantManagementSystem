@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class JwtUtil {
-    private static long time = 1000*60*60*1;
+    private static long time = 1000*60;
     private static String signature = "admin";
     public static String createToken(){
         JwtBuilder jwtBuilder = Jwts.builder();
