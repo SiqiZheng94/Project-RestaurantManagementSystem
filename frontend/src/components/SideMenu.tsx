@@ -12,6 +12,7 @@ function SideMenu() {
     return (
         <div className={"SideMenu"}>
             <Menu
+                style={{ height: "100vh" }}
                 onClick={(item)=>{
                     //item.key
                     navigate(item.key);

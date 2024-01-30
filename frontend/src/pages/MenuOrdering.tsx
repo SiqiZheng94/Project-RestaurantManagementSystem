@@ -2,7 +2,7 @@ import { Dish } from "../model/Dish.ts";
 import {useState} from "react";
 import { addDishInCartApi } from "../API";
 import { DishInCartDTO } from "../model/DishInCartDTO.ts";
-import MenuCard from "../components/Menu/MenuCard.tsx";
+import MenuCard from "../components/MenuCard.tsx";
 import {Typography} from "antd";
 
 type MenuOrderingProps = {
@@ -38,7 +38,7 @@ export default function MenuOrdering(props: MenuOrderingProps) {
         <>
             {Object.keys(categorizedDishes).map((category) => (
                 <div key={category}>
-                    <Typography.Title level={4} style={{color: "#ED2939",}} className={"separator"}>
+                    <Typography.Title level={4} style={{color: "#FE6F5E",}} className={"separator"}>
                         {category}
                     </Typography.Title >
                     <div className={"menu-display-container"}>

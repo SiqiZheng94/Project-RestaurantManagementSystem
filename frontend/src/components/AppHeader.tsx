@@ -1,5 +1,5 @@
 import { Image, Typography } from "antd";
-import myImage from "../../assets/logo-header2.jpg";
+import myImage from "../assets/logo-header2.jpg";
 function AppHeader() {
 
 

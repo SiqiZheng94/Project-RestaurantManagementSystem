@@ -1,9 +1,9 @@
 import { Space } from "antd";
 import "./App.css";
 
-import AppHeader from "./components/AppHeader";
-import SideMenu from "./components/SideMenu";
-import AppFooter from "./components/AppFooter";
+import AppHeader from "./components/AppHeader.tsx";
+import SideMenu from "./components/SideMenu.tsx";
+import AppFooter from "./components/AppFooter.tsx";
 import {Route, Routes} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
 import Inventory from "./pages/Inventory.tsx";

@@ -14,9 +14,17 @@ export const updateThisDishApi = (id:string, updatedDishDto:DishDTO)=>{
 export const getAllFilteredDishesApi = (params)=>{
     return axios.get("api/admin/menu/filter", {params: params })
 }
-
 export const createNewDishApi = (dishDto:DishDTO)=>{
     return axios.post("api/admin/menu/add", dishDto)
+}
+export const showOrderDetailsApi = (id:string)=>{
+    return axios.get("api/admin/orders/" + id)
+}
+export const getAllOrdersApi = ()=>{
+    return axios.get("api/admin/orders")
+}
+export const updateOrderStatusApi = (id:string)=>{
+    return axios.put("api/admin/orders/update-status/" + id)
 }
 // Customer
 export const addDishInCartApi = (dishInCartDto:DishInCartDTO)=>{
@@ -34,3 +42,4 @@ export const changeQuantityApi = (dishInCartDto:DishInCartDTO)=>{
 export const creatOrderAndLeerCartApi = ()=>{
     return axios.get("api/user/shoppingCart/payment")
 }
+

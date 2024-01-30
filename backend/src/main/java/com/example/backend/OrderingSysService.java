@@ -3,6 +3,7 @@ package com.example.backend;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
+import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -23,6 +25,8 @@ public class OrderingSysService {
     private final DishRepo dishRepo;
     private final DishInCartRepo dishInCartRepo;
     private final OrderRepo orderRepo;
+
+    // Admin
    public List<Dish> getAllDishes(){
        return dishRepo.findAll();
    }
@@ -74,6 +78,21 @@ public class OrderingSysService {
        return dishRepo.findAllByAvailability(availability);
     }
 
+    public List<Order> getAllOrders() {
+       return orderRepo.findAll();
+    }
+
+    public Order updateOrderStatus(String id) {
+        Order selectedOrder = orderRepo.findById(id).get();
+        if(Objects.equals(selectedOrder.status(), "OPEN")){
+            return orderRepo.save(selectedOrder.withStatus("IN PROGRESS"));
+        }
+        else if(Objects.equals(selectedOrder.status(), "IN PROGRESS")){
+            return orderRepo.save(selectedOrder.withStatus("FINISHED"));
+        }
+        return selectedOrder;
+    }
+    // Customer
     public DishInCart addDishInCart(DishInCartDTO dishInCartDTO) {
         List<DishInCart> dishAlreadyInCart=dishInCartRepo.findAllByDishIdIs(dishInCartDTO.getDishId());
         List<Dish> selectedDish = dishRepo.findAllByDishId(dishInCartDTO.getDishId());
@@ -117,12 +136,13 @@ public class OrderingSysService {
         return dishInCartRepo.save(selectd);
     }
 
-    public Order creatOrderAndLeerCart() {
+    public Order creatOrderAndEmptyCart() {
        Order newOrder = new Order(
                null,
                LocalDateTime.now(),
                "OPEN",
-               dishInCartRepo.findAll()
+               dishInCartRepo.findAll(),
+               dishInCartRepo.computeTotalPriceSum().getTotalPriceSum()
        );
        dishInCartRepo.deleteAll();
        return orderRepo.save(newOrder);

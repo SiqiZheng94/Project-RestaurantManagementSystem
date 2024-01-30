@@ -1,6 +1,6 @@
 import Meta from "antd/es/card/Meta";
 import { Button, Card, InputNumber, Tag, Typography } from "antd";
-import { Dish } from "../../model/Dish.ts";
+import { Dish } from "../model/Dish.ts";
 import { useState } from "react";
 
 type MenuCardProps = {
@@ -53,7 +53,7 @@ export default function MenuCard(props: MenuCardProps) {
                         fontSize: "14px",
                         marginTop: "10px",
                         fontWeight: "bold",
-                        color: "#ED2939",
+                        color: "#FE6F5E",
                     }}
                 >
                     Price: {props.dish.price} €
