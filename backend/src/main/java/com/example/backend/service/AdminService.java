@@ -4,8 +4,11 @@ import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
+import com.example.backend.entity.User;
 import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
+import com.example.backend.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +86,18 @@ public class AdminService {
             return orderRepo.save(selectedOrder.withStatus("FINISHED"));
         }
         return selectedOrder;
+    }
+
+    public User login(User user){
+        if(user.getUsername().equals("admin") && user.getPassword().equals("123456")){
+            user.setToken(JwtUtil.createToken());
+            return user;
+        }
+        return null;
+    }
+
+    public boolean checkToken(HttpServletRequest request){
+        String token = request.getHeader("token");
+        return JwtUtil.checkToken(token);
     }
 }

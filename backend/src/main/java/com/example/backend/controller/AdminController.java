@@ -66,21 +66,14 @@ public class AdminController {
         return service.updateOrderStatus(id);
     }
 
-    private static final String USERNAME = "admin";
-//    private static final String p = "123456";
+
     @PostMapping("/login")
     public User login(@RequestBody User user){
-//        if(USERNAME.equals(user.getUsername()) && PASSWORD.equals(user.getPassword())){
-        if(USERNAME.equals(user.getUsername()) && user.getPassword().equals("123456")){
-            user.setToken(JwtUtil.createToken());
-            return user;
-        }
-        return null;
+        return service.login(user);
     }
-    // test if the token is expired
+
     @GetMapping("/check-token")
     public boolean checkToken(HttpServletRequest request) {
-        String token = request.getHeader("token");
-        return JwtUtil.checkToken(token);
+        return service.checkToken(request);
     }
 }
