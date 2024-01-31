@@ -23,7 +23,7 @@ import axios from "axios";
 function App() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
-    const navigate = useNavigate();
+
 
     const fetchData = () => {
         getAllDishesApi()
@@ -47,7 +47,6 @@ function App() {
                 .then(response => {
                     if (response.data) {
                         setIsLoggedIn(true);
-                        navigate("/dashboard");
                     } else {
                         setIsLoggedIn(false);
                     }
@@ -61,12 +60,21 @@ function App() {
         }
     }
 
-
-
     useEffect(() => {
         checkToken();
         fetchData();
     }, [isLoggedIn]);
+
+
+    //  storing the URL of the page before login
+    const [previousPage, setPreviousPage] = useState('');
+    useEffect(() => {
+        // Get the URL of the current page
+        const currentUrl = window.location.href;
+        // Remove the base URL portion from the URL
+        const relativeUrl = currentUrl.replace(window.location.origin, '');
+        setPreviousPage(relativeUrl);
+    }, []);
 
 
   return (
@@ -76,8 +84,7 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
-
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} previousPage={previousPage}/>}></Route>
 
             <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
