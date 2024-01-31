@@ -1,71 +1,9 @@
-// import {
-//     AppstoreOutlined,
-//     ShopOutlined,
-//     ShoppingCartOutlined,
-//     UserOutlined,
-// } from "@ant-design/icons";
-// import { Menu } from "antd";
-// import { useNavigate } from "react-router-dom";
-//
-//
-//
-// function SideMenu() {
-//     const navigate = useNavigate();
-//     return (
-//         <div className={"SideMenu"}>
-//             <Menu
-//                 style={{ height: "100vh" }}
-//                 onClick={(item)=>{
-//                     //item.key
-//                     navigate(item.key);
-//                 }}
-//                 items={[
-//                     {
-//                         label: "Menu",
-//                         icon: <ShopOutlined />,
-//                         key: '/menu-ordering',
-//                     },
-//                     {
-//                         label: "Cart",
-//                         icon: <ShoppingCartOutlined />,
-//                         key: '/cart',
-//                     },
-//                     {
-//                         label: "Admin Login",
-//                         icon: <UserOutlined />,
-//                         key: '/login',
-//                     },
-//                     {
-//                         label: "Dashboard",
-//                         icon: <AppstoreOutlined />,
-//                         key: '/dashboard',
-//                     },
-//                     {
-//                         label: "Menu Management",
-//                         icon: <ShopOutlined />,
-//                         key: '/menu-management',
-//                     },
-//                     {
-//                         label: "Orders",
-//                         icon: <ShoppingCartOutlined />,
-//                         key: '/orders',
-//                     },
-//
-//                 ]
-//
-//                 }
-//             ></Menu>
-//         </div>
-//     )
-// }
-//
-//
-// export default SideMenu;
-
 import {
-    AppstoreOutlined,
+    ReadOutlined,
     ShopOutlined,
     ShoppingCartOutlined,
+    SolutionOutlined,
+    TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -86,13 +24,13 @@ function SideMenu() {
                 mode="vertical"
                 items={[
                     {
-                        label: "customer",
+                        label: "Customer",
                         icon: <ShopOutlined />,
                         key: 'customer',
                         children: [
                             {
                                 label: "Menu",
-                                icon: <ShopOutlined />,
+                                icon: <ReadOutlined />,
                                 key: '/menu-ordering',
                             },
                             {
@@ -102,8 +40,8 @@ function SideMenu() {
                             },
                         ]
                     },{
-                        label: "admin",
-                        icon: <ShopOutlined />,
+                        label: "Admin",
+                        icon: <TeamOutlined />,
                         key: 'admin',
                         children: [
                             {
@@ -118,7 +56,7 @@ function SideMenu() {
                             // },
                             {
                                 label: "Menu Management",
-                                icon: <ShopOutlined />,
+                                icon: <SolutionOutlined />,
                                 key: '/menu-management',
                             },
                             {
