@@ -11,7 +11,7 @@ export const deleteThisDishApi = (id:string)=>{
 export const updateThisDishApi = (id:string, updatedDishDto:DishDTO)=>{
     return axios.put("api/admin/menu/update/" + id, updatedDishDto)
 }
-export const getAllFilteredDishesApi = (params)=>{
+export const getAllFilteredDishesApi = (params:any)=>{
     return axios.get("api/admin/menu/filter", {params: params })
 }
 export const createNewDishApi = (dishDto:DishDTO)=>{

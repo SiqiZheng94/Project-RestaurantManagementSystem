@@ -15,8 +15,8 @@ function Orders () {
         getAllOrdersApi()
             .then((response) => {
                 // Use the sort method to sort the orders in reverse chronological order.
-                const sortedData = response.data.sort((a, b) => {
-                    return new Date(b.localDateTime) - new Date(a.localDateTime);
+                const sortedData = response.data.sort((a: { localDateTime: string }, b: { localDateTime: string }) => {
+                    return new Date(b.localDateTime).getTime() - new Date(a.localDateTime).getTime();
                 });
                 setDataSource(sortedData);
                 setLoading(false);

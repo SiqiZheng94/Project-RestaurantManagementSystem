@@ -12,8 +12,8 @@ export default function MenuOrdering(props: MenuOrderingProps) {
     const dishesList = props.dishes;
     // store the number of dishes in the cart
     const [cart, setCart] = useState({});
-    const [inputValues, setInputValues] = useState({});
-    const addToCart = (dishId, quantity) => {
+    const [inputValues] = useState({});
+    const addToCart = (dishId:number, quantity:number) => {
         const dishInCartDTO: DishInCartDTO = {
             dishId: dishId,
             amount: quantity,
@@ -42,7 +42,7 @@ export default function MenuOrdering(props: MenuOrderingProps) {
                         {category}
                     </Typography.Title >
                     <div className={"menu-display-container"}>
-                        {categorizedDishes[category].map((dish: Dish) => (
+                        {(categorizedDishes as any)[category].map((dish: Dish) => (
                             <MenuCard
                                 key={dish._id}
                                 dish={dish}

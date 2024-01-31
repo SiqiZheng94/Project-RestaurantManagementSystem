@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {User} from "../model/User.ts";
 import {message} from "antd";
 import {useNavigate} from "react-router-dom";
