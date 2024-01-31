@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {User} from "../model/User.ts";
+import {message} from "antd";
+import {useNavigate} from "react-router-dom";
+
 
 type LoginProps = {
     setIsLoggedIn: (isLoggedIn: boolean | undefined) => void;
+    previousPage: string;
 }
 export default function Login (props:LoginProps){
     const [user, setUser] = useState<User>({
@@ -11,6 +15,7 @@ export default function Login (props:LoginProps){
         token: null,
     });
 
+    const navigate = useNavigate();
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -18,6 +23,7 @@ export default function Login (props:LoginProps){
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
     };
+
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -36,22 +42,22 @@ export default function Login (props:LoginProps){
                 if (data.token) {
                     setUser({ ...user, token: data.token });
                     localStorage.setItem('token', data.token);
-                    alert('Login successful!');
+
                     props.setIsLoggedIn(true);
+                    message.success('Login successful!');
+                    // 导航回登录前的页面
+                    navigate(props.previousPage);
                 } else {
-                    alert('Login failed. Please check your credentials.');
+                    message.error('Login failed. Please check your credentials.');
                 }
             } else {
-                alert('Login failed. Please try again later.');
+                message.error('Login failed. Please try again later.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred during login. Please try again later.');
+            message.error('An error occurred during login. Please try again later.');
         }
     };
-
-
-
 
     return (
         <div className="container">

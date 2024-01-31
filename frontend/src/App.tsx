@@ -4,7 +4,7 @@ import "./App.css";
 import AppHeader from "./components/AppHeader.tsx";
 import SideMenu from "./components/SideMenu.tsx";
 import AppFooter from "./components/AppFooter.tsx";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
 import Orders from "./pages/Orders.tsx";
 import MenuManagement from "./pages/MenuManagement.tsx";
@@ -19,9 +19,11 @@ import axios from "axios";
 
 
 
+
 function App() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
+
 
     const fetchData = () => {
         getAllDishesApi()
@@ -35,7 +37,7 @@ function App() {
 
     const checkToken = () => {
         const token = localStorage.getItem('token');
-        console.log("token:"+token)
+
         if (token) {
             axios.get('api/admin/check-token', {
                 headers: {
@@ -45,7 +47,6 @@ function App() {
                 .then(response => {
                     if (response.data) {
                         setIsLoggedIn(true);
-                        console.log("valid. isLoggedIn: "+ isLoggedIn)
                     } else {
                         setIsLoggedIn(false);
                     }
@@ -59,14 +60,23 @@ function App() {
         }
     }
 
-
-
     useEffect(() => {
         checkToken();
         fetchData();
     }, [isLoggedIn]);
 
-    console.log("before return:"+isLoggedIn)
+
+    //  storing the URL of the page before login
+    const [previousPage, setPreviousPage] = useState('');
+    useEffect(() => {
+        // Get the URL of the current page
+        const currentUrl = window.location.href;
+        // Remove the base URL portion from the URL
+        const relativeUrl = currentUrl.replace(window.location.origin, '');
+        setPreviousPage(relativeUrl);
+    }, []);
+
+
   return (
     <div className={"App"}>
       <AppHeader />
@@ -74,7 +84,7 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} previousPage={previousPage}/>}></Route>
 
             <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
