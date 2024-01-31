@@ -5,7 +5,6 @@ import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,18 +19,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.backend.commen.DishCategoryEnum.DRINK;
-import static org.junit.Assert.*;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class UserControllerTest {
+class CustomerControllerTest {
     private final String BASE_URL = "/api/user";
     @Autowired
     private MockMvc mockMvc;

@@ -1,10 +1,10 @@
 package com.example.backend.controller;
 
-import com.example.backend.OrderingSysService;
 import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.DishInCart;
 import com.example.backend.entity.Order;
+import com.example.backend.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class UserController {
-    private final OrderingSysService service;
+public class CustomerController {
+
+    private final CustomerService service;
 
     @GetMapping
     public List<Dish> getAllDishes() {

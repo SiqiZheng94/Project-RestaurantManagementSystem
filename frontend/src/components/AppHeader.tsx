@@ -9,7 +9,8 @@ function AppHeader() {
                 height={70}
                 src={myImage}
             ></Image>
-            <Typography.Title>Management System</Typography.Title>
+
+            <Typography.Title className="centeredTitle">Sushi Restaurant</Typography.Title>
 
         </div>
     );

@@ -1,64 +1,81 @@
 import {
-    AppstoreOutlined,
+    ReadOutlined,
     ShopOutlined,
     ShoppingCartOutlined,
+    SolutionOutlined,
+    TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
+
+
 function SideMenu() {
     const navigate = useNavigate();
     return (
-        <div className={"SideMenu"}>
+
             <Menu
                 style={{ height: "100vh" }}
                 onClick={(item)=>{
                     //item.key
                     navigate(item.key);
                 }}
+                mode="vertical"
                 items={[
                     {
-                        label: "Dashboard",
-                        icon: <AppstoreOutlined />,
-                        key: '/admin',
-                    },
-                    {
-                        label: "Menu Management",
+                        label: "Customer",
                         icon: <ShopOutlined />,
-                        key: '/menu-management',
+                        key: 'customer',
+                        children: [
+                            {
+                                label: "Menu",
+                                icon: <ReadOutlined />,
+                                key: '/menu-ordering',
+                            },
+                            {
+                                label: "Cart",
+                                icon: <ShoppingCartOutlined />,
+                                key: '/cart',
+                            },
+                        ]
+                    },{
+                        label: "Admin",
+                        icon: <TeamOutlined />,
+                        key: 'admin',
+                        children: [
+                            {
+                                label: "Admin Login",
+                                icon: <UserOutlined />,
+                                key: '/login',
+                            },
+                            {
+                                label: "Dashboard",
+                                icon: <ReadOutlined />,
+                                key: '/dashboard',
+                            },
+                            {
+                                label: "Menu Management",
+                                icon: <SolutionOutlined />,
+                                key: '/menu-management',
+                            },
+                            {
+                                label: "Orders",
+                                icon: <ShoppingCartOutlined />,
+                                key: '/orders',
+                            },
+                        ]
                     },
 
-                    {
-                        label: "Inventory",
-                        icon: <ShopOutlined />,
-                        key: '/inventory',
-                    },
-                    {
-                        label: "Orders",
-                        icon: <ShoppingCartOutlined />,
-                        key: '/orders',
-                    },
-                    {
-                        label: "Customers",
-                        icon: <UserOutlined />,
-                        key: '/customers',
-                    },
-                    {
-                        label: "Menu Ordering",
-                        icon: <ShopOutlined />,
-                        key: '/menu-ordering',
-                    },
-                    {
-                        label: "Cart",
-                        icon: <ShoppingCartOutlined />,
-                        key: '/cart',
-                    },
+
+
                 ]
 
                 }
             ></Menu>
-        </div>
+
     )
 }
+
+
 export default SideMenu;

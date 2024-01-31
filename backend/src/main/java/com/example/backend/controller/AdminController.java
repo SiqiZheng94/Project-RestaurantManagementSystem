@@ -1,22 +1,22 @@
 package com.example.backend.controller;
 
-import com.example.backend.OrderingSysService;
+import com.example.backend.service.AdminService;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
-import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
+import com.example.backend.entity.User;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
-    private final OrderingSysService service;
+    private final AdminService service;
 
     @GetMapping("/menu")
     public List<Dish> getAllDishes() {
@@ -63,5 +63,16 @@ public class AdminController {
     @PutMapping("/orders/update-status/{id}")
     public Order updateOrderStatus(@PathVariable String id){
         return service.updateOrderStatus(id);
+    }
+
+
+    @PostMapping("/login")
+    public User login(@RequestBody User user){
+        return service.login(user);
+    }
+
+    @GetMapping("/check-token")
+    public boolean checkToken(HttpServletRequest request) {
+        return service.checkToken(request);
     }
 }

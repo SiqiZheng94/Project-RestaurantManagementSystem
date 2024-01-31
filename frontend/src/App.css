@@ -9,9 +9,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 20px 4px 12px;
+  padding: 6px 20px 2px 32px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
+.centeredTitle {
+  text-align: center;
+  margin: 0 auto;
+}
+
 .AppFooter{
   display: flex;
   justify-content: space-evenly;
@@ -59,6 +64,7 @@
 .SideMenuVertical{
   height: 100%;
 }
+
 .PageContent{
   padding-left: 12px;
   padding-top: 22px;

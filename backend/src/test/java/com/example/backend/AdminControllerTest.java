@@ -5,6 +5,8 @@ import com.example.backend.dto.DishDTO;
 import com.example.backend.dto.DishInCartDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
+import com.example.backend.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -199,5 +201,23 @@ class AdminControllerTest {
                 .andReturn();
         Order updatedOrder3 = objectMapper.readValue(updatedOrderResult3.getResponse().getContentAsString(), Order.class);
         Assertions.assertEquals("FINISHED", updatedOrder3.status());
+    }
+
+    @Test
+    void checkToken_whenValidUser_returnTrue() throws Exception {
+        User validUser = new User("admin", "123456", null);
+        String userJson = objectMapper.writeValueAsString(validUser);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andReturn();
+        User userWithToken = objectMapper.readValue(result.getResponse().getContentAsString(), User.class);
+        String token = userWithToken.getToken();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL+"/check-token")
+                .header("token", token)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("true"));
     }
 }
