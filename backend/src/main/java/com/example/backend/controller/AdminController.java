@@ -6,7 +6,6 @@ import com.example.backend.dto.DishDTO;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
 import com.example.backend.entity.User;
-import com.example.backend.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
