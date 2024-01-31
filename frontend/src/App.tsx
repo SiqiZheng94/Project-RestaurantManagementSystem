@@ -82,7 +82,7 @@ function App() {
 
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
-            {/*<Route path="/" element={<Home />}></Route>*/}
+
         </Routes>
       </Space>
       <AppFooter />
