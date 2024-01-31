@@ -2,6 +2,7 @@ package com.example.backend;
 
 import com.example.backend.dto.DishDTO;
 import com.example.backend.entity.Dish;
+import com.example.backend.entity.User;
 import com.example.backend.repo.DishRepo;
 import com.example.backend.repo.OrderRepo;
 import com.example.backend.service.AdminService;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 import static com.example.backend.commen.DishCategoryEnum.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 
@@ -46,6 +48,29 @@ class AdminServiceTest {
         //THEN
         verify(mockDishRepo).save(expected);
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void loginValidUser(){
+        //GIVEN
+        AdminService adminService = new AdminService(mockDishRepo, mockOrderRepo);
+        User validUser = new User("admin", "123456", null);
+        //WHEN
+        User result = adminService.login(validUser);
+        //THEN
+        assertNotNull(result);
+        assertNotNull(result.getToken());
+        assertTrue(result.getToken().length()>0);
+    }
+    @Test
+    void loginInvalidUser() {
+        //GIVEN
+        AdminService adminService = new AdminService(mockDishRepo, mockOrderRepo);
+        User invalidUser = new User("invalid", "invalid", null);
+        //WHEN
+        User result = adminService.login(invalidUser);
+        //THEN
+        assertNull(result);
     }
 
 
