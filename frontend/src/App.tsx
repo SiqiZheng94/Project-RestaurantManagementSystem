@@ -4,7 +4,7 @@ import "./App.css";
 import AppHeader from "./components/AppHeader.tsx";
 import SideMenu from "./components/SideMenu.tsx";
 import AppFooter from "./components/AppFooter.tsx";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
 import Orders from "./pages/Orders.tsx";
 import MenuManagement from "./pages/MenuManagement.tsx";
@@ -16,7 +16,6 @@ import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import AuthGuard from "./components/AuthGuard.tsx";
 import axios from "axios";
-
 
 
 

@@ -96,18 +96,23 @@ export default function Cart(){
     {
         title: "Quantity",
         dataIndex: "amount",
-        render: (text: string, record: DishInCart) => (
+        render: (_text: string, record: DishInCart) => (
             <InputNumber
                 min={1}
                 value={record.amount}
-                onChange={(newAmount) => handleQuantityChange(record.dishId, newAmount)}
+                onChange={(newAmount) => {
+                    if (newAmount !== null) {
+                        handleQuantityChange(record.dishId, newAmount);
+                    }
+                }}
             />
+
         ),
     },
     {
         title: "Total Amount",
         dataIndex: "totalPrice",
-        render: (text, record: DishInCart) => (
+        render: (_text: string, record: DishInCart) => (
             <span>{record.totalPrice.toFixed(2)}</span>
         ),
     },

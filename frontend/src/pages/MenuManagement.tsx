@@ -215,7 +215,7 @@ export default function MenuManagement() {
                 <DishForm
                     dish={editingDish}
                     onCancel={handleModalCancel}
-                    onFinish={(values) => {
+                    onFinish={(values:any) => {
                         if (editingDish) {
                             updateThisItem(editingDish._id, values);
                         }
@@ -231,7 +231,7 @@ export default function MenuManagement() {
             >
                 <DishForm
                     onCancel={handleAddModalCancel}
-                    onFinish={(values) => {
+                    onFinish={(values:any) => {
                         createNewDish(values);
                     }}
                 />

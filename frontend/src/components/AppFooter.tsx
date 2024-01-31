@@ -1,5 +1,3 @@
-import { Typography } from "antd";
-import React from "react";
 import {GithubOutlined, LinkedinOutlined} from "@ant-design/icons";
 
 function AppFooter() {

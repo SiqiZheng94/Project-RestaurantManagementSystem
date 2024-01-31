@@ -14,9 +14,10 @@ export default function MenuCard(props: MenuCardProps) {
         props.values[props.dish.dishId] || 0
     );
 
-    const handleInputChange = (value: number | string | undefined) => {
-        const parsedValue = parseInt(value as string, 10);
-        setInputValue(parsedValue);
+    const handleInputChange = (value: number | null) => {
+        if (value !== null) {
+            setInputValue(value);
+        }
     };
 
     const handlePressEnter = () => {
