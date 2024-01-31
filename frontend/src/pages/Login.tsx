@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {User} from "../model/User.ts";
 
+
 type LoginProps = {
     setIsLoggedIn: (isLoggedIn: boolean | undefined) => void;
 }
@@ -49,9 +50,6 @@ export default function Login (props:LoginProps){
             alert('An error occurred during login. Please try again later.');
         }
     };
-
-
-
 
     return (
         <div className="container">

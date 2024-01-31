@@ -121,3 +121,54 @@
 .menu-controls button:hover {
   background-color: #0056b3;
 }
+
+.container {
+  width: 300px;
+  margin: 20px auto auto 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  & h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .form-group {
+    margin: 0 0 15px 35px;
+  }
+
+  & label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  & input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+  }
+
+  & button {
+    width: 70%;
+    padding: 10px;
+    background-color: #FE6F5E;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0 0 0 35px;
+  }
+
+  & button:hover {
+    background-color: #0056b3;
+  }
+}

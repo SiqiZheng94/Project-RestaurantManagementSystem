@@ -19,6 +19,7 @@ import axios from "axios";
 
 
 
+
 function App() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
@@ -76,6 +77,7 @@ function App() {
 
         <Routes>
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
+
 
             <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />

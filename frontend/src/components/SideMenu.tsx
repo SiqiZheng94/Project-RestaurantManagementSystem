@@ -44,11 +44,11 @@ function SideMenu() {
                         icon: <TeamOutlined />,
                         key: 'admin',
                         children: [
-                            // {
-                            //     label: "Admin Login",
-                            //     icon: <UserOutlined />,
-                            //     key: '/login',
-                            // },
+                            {
+                                label: "Admin Login",
+                                icon: <UserOutlined />,
+                                key: '/login',
+                            },
                             {
                                 label: "Dashboard",
                                 icon: <ReadOutlined />,
