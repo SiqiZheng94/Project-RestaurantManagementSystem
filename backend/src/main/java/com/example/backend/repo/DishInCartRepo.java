@@ -1,6 +1,6 @@
 package com.example.backend.repo;
 
-import com.example.backend.dto.PriceSummary;
+import com.example.backend.entity.PriceSummary;
 import com.example.backend.entity.DishInCart;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;

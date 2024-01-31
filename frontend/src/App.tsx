@@ -6,20 +6,17 @@ import SideMenu from "./components/SideMenu.tsx";
 import AppFooter from "./components/AppFooter.tsx";
 import {Route, Routes} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
-import Inventory from "./pages/Inventory.tsx";
 import Orders from "./pages/Orders.tsx";
-import Customers from "./pages/Customers.tsx";
 import MenuManagement from "./pages/MenuManagement.tsx";
 import MenuOrdering from "./pages/MenuOrdering.tsx";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Dish} from "./model/Dish.ts";
 import {getAllDishesApi} from "./API";
-import Home from "./pages/Home.tsx";
 import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import AuthGuard from "./components/AuthGuard.tsx";
 import axios from "axios";
-import {User} from "./model/User.ts";
+
 
 
 function App() {
@@ -77,9 +74,9 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/login" element={<Login   isLogged={isLoggedIn}/>}></Route>
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
 
-            {/*<Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />*/}
+            <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
             <Route path="/menu-management" element={<AuthGuard isAuthenticated={isLoggedIn}><MenuManagement /></AuthGuard>} />
 

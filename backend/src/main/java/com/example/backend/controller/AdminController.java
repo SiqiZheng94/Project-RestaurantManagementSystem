@@ -1,26 +1,23 @@
 package com.example.backend.controller;
 
-import com.example.backend.OrderingSysService;
+import com.example.backend.service.AdminService;
 import com.example.backend.commen.DishCategoryEnum;
 import com.example.backend.dto.DishDTO;
-import com.example.backend.dto.PriceSummary;
 import com.example.backend.entity.Dish;
 import com.example.backend.entity.Order;
 import com.example.backend.entity.User;
 import com.example.backend.util.JwtUtil;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
-    private final OrderingSysService service;
+    private final AdminService service;
 
     @GetMapping("/menu")
     public List<Dish> getAllDishes() {
@@ -69,8 +66,8 @@ public class AdminController {
         return service.updateOrderStatus(id);
     }
 
-    private final String USERNAME = "admin";
-    private final String PASSWORD = "123456";
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "123456";
     @PostMapping("/login")
     public User login(@RequestBody User user){
         if(USERNAME.equals(user.getUsername()) && PASSWORD.equals(user.getPassword())){

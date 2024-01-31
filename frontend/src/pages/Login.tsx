@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {User} from "../model/User.ts";
 
 type LoginProps = {
-    isLogged : boolean | undefined;
+    setIsLoggedIn: (isLoggedIn: boolean | undefined) => void;
 }
 export default function Login (props:LoginProps){
     const [user, setUser] = useState<User>({
         username: 'admin',
-        password: '123456',
+        password: '',
         token: null,
     });
-
 
 
     const handleInputChange = (
@@ -38,8 +37,7 @@ export default function Login (props:LoginProps){
                     setUser({ ...user, token: data.token });
                     localStorage.setItem('token', data.token);
                     alert('Login successful!');
-
-
+                    props.setIsLoggedIn(true);
                 } else {
                     alert('Login failed. Please check your credentials.');
                 }
@@ -68,6 +66,7 @@ export default function Login (props:LoginProps){
                         value={user.username}
                         onChange={handleInputChange}
                         required
+                        placeholder={"admin"}
                     />
                 </div>
                 <div className="form-group">
@@ -79,6 +78,7 @@ export default function Login (props:LoginProps){
                         value={user.password}
                         onChange={handleInputChange}
                         required
+                        placeholder={"123456"}
                     />
                 </div>
                 <button type="submit">Login</button>

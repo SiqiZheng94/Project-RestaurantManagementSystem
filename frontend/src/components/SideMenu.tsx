@@ -49,11 +49,11 @@ function SideMenu() {
                                 icon: <UserOutlined />,
                                 key: '/login',
                             },
-                            // {
-                            //     label: "Dashboard",
-                            //     icon: <AppstoreOutlined />,
-                            //     key: '/dashboard',
-                            // },
+                            {
+                                label: "Dashboard",
+                                icon: <ReadOutlined />,
+                                key: '/dashboard',
+                            },
                             {
                                 label: "Menu Management",
                                 icon: <SolutionOutlined />,
