@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 
 type LoginProps = {
     setIsLoggedIn: (isLoggedIn: boolean | undefined) => void;
-    previousPage: string;
 }
 export default function Login (props:LoginProps){
     const [user, setUser] = useState<User>({
@@ -45,8 +44,9 @@ export default function Login (props:LoginProps){
 
                     props.setIsLoggedIn(true);
                     message.success('Login successful!');
-                    // 导航回登录前的页面
-                    navigate(props.previousPage);
+
+
+                    navigate("/menu-management");
                 } else {
                     message.error('Login failed. Please check your credentials.');
                 }

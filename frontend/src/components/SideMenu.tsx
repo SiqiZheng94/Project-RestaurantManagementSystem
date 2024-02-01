@@ -1,9 +1,9 @@
 import {
+    MenuOutlined,
     ReadOutlined,
     ShopOutlined,
     ShoppingCartOutlined,
     SolutionOutlined,
-    TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -16,7 +16,7 @@ function SideMenu() {
     return (
 
             <Menu
-                style={{ height: "100vh" }}
+                style={{ height: "73vh" }}
                 onClick={(item)=>{
                     //item.key
                     navigate(item.key);
@@ -41,27 +41,22 @@ function SideMenu() {
                         ]
                     },{
                         label: "Admin",
-                        icon: <TeamOutlined />,
+                        icon: <UserOutlined />,
                         key: 'admin',
                         children: [
-                            {
-                                label: "Admin Login",
-                                icon: <UserOutlined />,
-                                key: '/login',
-                            },
-                            {
-                                label: "Dashboard",
-                                icon: <ReadOutlined />,
-                                key: '/dashboard',
-                            },
+                            // {
+                            //     label: "Dashboard",
+                            //     icon: <ReadOutlined />,
+                            //     key: '/dashboard',
+                            // },
                             {
                                 label: "Menu Management",
-                                icon: <SolutionOutlined />,
+                                icon: <MenuOutlined />,
                                 key: '/menu-management',
                             },
                             {
-                                label: "Orders",
-                                icon: <ShoppingCartOutlined />,
+                                label: "Orders management",
+                                icon: <SolutionOutlined />,
                                 key: '/orders',
                             },
                         ]

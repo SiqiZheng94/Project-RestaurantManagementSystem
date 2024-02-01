@@ -16,6 +16,7 @@ import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import AuthGuard from "./components/AuthGuard.tsx";
 import axios from "axios";
+import Home from "./pages/Home.tsx";
 
 
 
@@ -65,17 +66,6 @@ function App() {
     }, [isLoggedIn]);
 
 
-    //  storing the URL of the page before login
-    const [previousPage, setPreviousPage] = useState('');
-    useEffect(() => {
-        // Get the URL of the current page
-        const currentUrl = window.location.href;
-        // Remove the base URL portion from the URL
-        const relativeUrl = currentUrl.replace(window.location.origin, '');
-        setPreviousPage(relativeUrl);
-    }, []);
-
-
   return (
     <div className={"App"}>
       <AppHeader />
@@ -83,7 +73,7 @@ function App() {
         <SideMenu></SideMenu>
 
         <Routes>
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} previousPage={previousPage}/>}></Route>
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}></Route>
 
             <Route path="/dashboard" element={<AuthGuard isAuthenticated={isLoggedIn}><Dashboard /></AuthGuard>} />
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
@@ -92,6 +82,7 @@ function App() {
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
 
+            <Route path="/" element={<Home />}></Route>
         </Routes>
       </Space>
       <AppFooter />
