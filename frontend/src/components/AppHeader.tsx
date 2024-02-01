@@ -9,9 +9,12 @@ function AppHeader() {
 
     return (
         <div className="AppHeader">
-
-            <div onClick={openHomePage}
-                 role="button">
+            <div
+                onClick={openHomePage}
+                onKeyDown={() => {}}
+                role="button"
+                tabIndex={0}
+            >
                 <img
                     height={70}
                     src={myImage}
