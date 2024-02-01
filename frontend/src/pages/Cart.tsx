@@ -1,4 +1,4 @@
-import {Button, InputNumber, Space, Table, Typography} from "antd";
+import {Button, InputNumber, message, Space, Table, Typography} from "antd";
 import {DishInCart} from "../model/DishInCart.ts";
 import {useEffect, useState} from "react";
 import {
@@ -69,6 +69,7 @@ export default function Cart(){
 
             const response = await getAllDishesInCartApi();
             setDataSource(response.data);
+            message.success('Your order has been successfully transmitted!');
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {

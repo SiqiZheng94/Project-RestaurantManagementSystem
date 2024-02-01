@@ -1,5 +1,5 @@
 import Meta from "antd/es/card/Meta";
-import { Button, Card, InputNumber, Tag, Typography } from "antd";
+import {Button, Card, InputNumber, message, Tag, Typography} from "antd";
 import { Dish } from "../model/Dish.ts";
 import { useState } from "react";
 
@@ -72,8 +72,11 @@ export default function MenuCard(props: MenuCardProps) {
                     onClick={() => {
                         if (inputValue > 0) {
                             props.addToCart(props.dish.dishId, inputValue);
+                            message.success('Dish added to cart!');
                         }
-                    }}
+                        else {
+                            message.error('Amount cannot be 0.');
+                    }}}
                 >
                     Add to Cart
                 </Button>
