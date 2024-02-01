@@ -70,6 +70,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        env:
+          NODE_VERSION: '20'
 
       - name: Push to Docker
         uses: docker/build-push-action@v3
@@ -77,3 +79,5 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_TAG }}
           context: .
+        env:
+          NODE_VERSION: '20'
