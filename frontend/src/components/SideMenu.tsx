@@ -1,9 +1,9 @@
 import {
+    MenuOutlined,
     ReadOutlined,
     ShopOutlined,
     ShoppingCartOutlined,
     SolutionOutlined,
-    TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -41,7 +41,7 @@ function SideMenu() {
                         ]
                     },{
                         label: "Admin",
-                        icon: <TeamOutlined />,
+                        icon: <UserOutlined />,
                         key: 'admin',
                         children: [
                             // {
@@ -51,12 +51,12 @@ function SideMenu() {
                             // },
                             {
                                 label: "Menu Management",
-                                icon: <SolutionOutlined />,
+                                icon: <MenuOutlined />,
                                 key: '/menu-management',
                             },
                             {
-                                label: "Orders",
-                                icon: <ShoppingCartOutlined />,
+                                label: "Orders management",
+                                icon: <SolutionOutlined />,
                                 key: '/orders',
                             },
                         ]
