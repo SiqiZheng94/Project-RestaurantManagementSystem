@@ -77,3 +77,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_TAG }}
           context: .
+
+  deploy-render:
+    name: Deployment render.com
+    runs-on: ubuntu-latest
+    needs: push-to-docker-hub
+    environment:
+      name: Restaurant Ordering System
+      url: https://restaurant-ordering-system-4vq0.onrender.com/
+
+    steps:
+      - name: Trigger render.com Deployment
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
