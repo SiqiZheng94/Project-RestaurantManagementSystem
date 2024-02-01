@@ -3,14 +3,15 @@ import myImage from "../assets/logo-header2.jpg";
 import {useNavigate} from "react-router-dom";
 function AppHeader() {
     const navigate = useNavigate();
-    const openHomePage = ()=>{
+    function openHomePage (){
         navigate("/");
     }
 
     return (
         <div className="AppHeader">
 
-            <div onClick={openHomePage}>
+            <div onClick={openHomePage}
+                 role="button">
                 <img
                     height={70}
                     src={myImage}
