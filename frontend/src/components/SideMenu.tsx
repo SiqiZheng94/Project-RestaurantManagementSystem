@@ -16,7 +16,7 @@ function SideMenu() {
     return (
 
             <Menu
-                style={{ height: "100vh" }}
+                style={{ height: "73vh" }}
                 onClick={(item)=>{
                     //item.key
                     navigate(item.key);
@@ -44,16 +44,11 @@ function SideMenu() {
                         icon: <TeamOutlined />,
                         key: 'admin',
                         children: [
-                            {
-                                label: "Admin Login",
-                                icon: <UserOutlined />,
-                                key: '/login',
-                            },
-                            {
-                                label: "Dashboard",
-                                icon: <ReadOutlined />,
-                                key: '/dashboard',
-                            },
+                            // {
+                            //     label: "Dashboard",
+                            //     icon: <ReadOutlined />,
+                            //     key: '/dashboard',
+                            // },
                             {
                                 label: "Menu Management",
                                 icon: <SolutionOutlined />,

@@ -45,8 +45,9 @@ export default function Login (props:LoginProps){
 
                     props.setIsLoggedIn(true);
                     message.success('Login successful!');
-                    // 导航回登录前的页面
-                    navigate(props.previousPage);
+
+                    // navigate(props.previousPage);
+                    navigate("/menu-management");
                 } else {
                     message.error('Login failed. Please check your credentials.');
                 }

@@ -16,6 +16,7 @@ import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import AuthGuard from "./components/AuthGuard.tsx";
 import axios from "axios";
+import Home from "./pages/Home.tsx";
 
 
 
@@ -92,6 +93,7 @@ function App() {
             <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
 
+            <Route path="/" element={<Home />}></Route>
         </Routes>
       </Space>
       <AppFooter />
