@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 
 type LoginProps = {
     setIsLoggedIn: (isLoggedIn: boolean | undefined) => void;
-    previousPage: string;
 }
 export default function Login (props:LoginProps){
     const [user, setUser] = useState<User>({

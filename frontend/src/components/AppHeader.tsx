@@ -9,12 +9,15 @@ function AppHeader() {
 
     return (
         <div className="AppHeader">
-            <img
-                height={70}
-                src={myImage}
-                onClick={()=>openHomePage}
-                alt={"logo"}>
-            </img>
+
+            <div onClick={openHomePage}>
+                <img
+                    height={70}
+                    src={myImage}
+                    alt="logo"
+                    style={{ cursor: "pointer" }}
+                />
+            </div>
 
             <Typography.Title className="centeredTitle">Sushi Restaurant</Typography.Title>
 
