@@ -46,7 +46,7 @@ export default function Login (props:LoginProps){
                     props.setIsLoggedIn(true);
                     message.success('Login successful!');
 
-                    // navigate(props.previousPage);
+
                     navigate("/menu-management");
                 } else {
                     message.error('Login failed. Please check your credentials.');

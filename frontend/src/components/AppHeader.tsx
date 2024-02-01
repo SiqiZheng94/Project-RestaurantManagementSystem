@@ -12,7 +12,7 @@ function AppHeader() {
             <img
                 height={70}
                 src={myImage}
-                onClick={openHomePage}
+                onClick={()=>openHomePage}
                 alt={"logo"}>
             </img>
 
