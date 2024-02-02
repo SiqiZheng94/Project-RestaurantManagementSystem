@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.backend.commen.DishCategoryEnum.DRINK;
-import static org.junit.Assert.assertEquals;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
