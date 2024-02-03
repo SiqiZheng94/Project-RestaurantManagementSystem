@@ -23,7 +23,7 @@ function AppHeader() {
                 />
             </div>
 
-            <Typography.Title className="centeredTitle">Sushi Restaurant</Typography.Title>
+            <Typography.Title className="centeredTitle">寿司 Restaurant</Typography.Title>
 
         </div>
     );
