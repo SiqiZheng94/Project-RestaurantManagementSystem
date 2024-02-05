@@ -21,19 +21,19 @@ import Home from "./pages/Home.tsx";
 
 
 function App() {
-    const [dataSource, setDataSource] = useState<Dish[]>([]);
+    // const [dataSource, setDataSource] = useState<Dish[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
 
 
-    const fetchData = () => {
-        getAllDishesApi()
-            .then(response => {
-                setDataSource(response.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }
+    // const fetchData = () => {
+    //     getAllDishesApi()
+    //         .then(response => {
+    //             setDataSource(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching data:", error);
+    //         });
+    // }
 
     const checkToken = () => {
         const token = localStorage.getItem('token');
@@ -62,7 +62,7 @@ function App() {
 
     useEffect(() => {
         checkToken();
-        fetchData();
+        // fetchData();
     }, [isLoggedIn]);
 
 
@@ -79,7 +79,7 @@ function App() {
             <Route path="/orders" element={<AuthGuard isAuthenticated={isLoggedIn}><Orders  /></AuthGuard>} />
             <Route path="/menu-management" element={<AuthGuard isAuthenticated={isLoggedIn}><MenuManagement /></AuthGuard>} />
 
-            <Route path="/menu-ordering" element={<MenuOrdering  dishes={dataSource} />}></Route>
+            <Route path="/menu-ordering" element={<MenuOrdering  />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
 
             <Route path="/" element={<Home />}></Route>

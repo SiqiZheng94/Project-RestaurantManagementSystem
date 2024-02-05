@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JwtUtil {
-    private static long time = 1000L*60;
+    private static long time = 1000L*60*5;
     private static String signature = "admin";
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
