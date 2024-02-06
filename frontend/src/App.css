@@ -94,8 +94,8 @@
   box-sizing: border-box;
 }
 .disabled-card {
-  opacity: 0.5; /* the transparency */
-  pointer-events: none; /* not respond to user events */
+  opacity: 0.5;
+  pointer-events: none;
 }
 .menu-details{
   display: flex;
@@ -125,7 +125,7 @@
 
 .container {
   width: 300px;
-  margin: 0 auto; /* 水平居中 */
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -178,13 +178,13 @@
 
 
 .home-container {
-  background-image: url("./assets/homepage.jpg"); /* 替换为您的背景图像文件路径 */
+  background-image: url("./assets/homepage.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* 固定背景图像 */
-  background-position: bottom; /* 图像位置从底部开始 */
+  background-attachment: fixed;
+  background-position: bottom;
   min-width: 89.3vw;
-  min-height: 73vh;/* 使用 min-height 而不是 height 来确保容器至少填满整个视口高度 */
+  min-height: 73vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,16 +194,16 @@
 
 .home-container div {
   display: flex;
-  justify-content: space-between; /* 使按钮之间均匀分布 */
-  width: 40%; /* 控制按钮的宽度 */
+  justify-content: space-between;
+  width: 40%;
 }
 
 .home-container button {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
-  flex: 1; /* 使按钮自动平均分配容器的宽度 */
-  margin: 0 10px; /* 调整按钮之间的间距 */
+  flex: 1;
+  margin: 0 10px;
   font-size: 1.2rem;
 }
 
