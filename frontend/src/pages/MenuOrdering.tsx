@@ -10,7 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 export default function MenuOrdering() {
     const [dataSource, setDataSource] = useState<Dish[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true); // 加载状态
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const fetchData = () => {
         getAllDishesApi()
             .then(response => {
