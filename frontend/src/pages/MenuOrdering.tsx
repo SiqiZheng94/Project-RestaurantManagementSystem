@@ -63,7 +63,6 @@ export default function MenuOrdering() {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     zIndex: 9999,
                 }}>
-                    {/* 加载状态的 UI，可以自定义样式和内容 */}
                     <div className="d-flex align-items-center">
                         <Spinner animation="grow" as="output" variant="primary">
                             <span className="sr-only">Loading...</span>
