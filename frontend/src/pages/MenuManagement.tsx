@@ -204,6 +204,10 @@ export default function MenuManagement() {
                     ...dish,
                     key: dish.dishId.toString(),
                 }))}
+                pagination={{
+                    style: { color: 'green' }, // 设置分页数字的颜色
+
+                }}
             />
 
             <Modal

@@ -139,7 +139,7 @@ export default function Cart(){
                 }))}
             />
             <div className="MultipleElementsInaRow">
-                <Typography.Title level={5}>Total: {calculateTotalAmount()}€</Typography.Title>
+                <Typography.Title level={5} style={{ color: "#FE6F5E" }}>Total: {calculateTotalAmount()}€</Typography.Title>
                 <Button className="submit-button" onClick={() => creatOrderAndLeerCart()}>Payment</Button>
             </div>
         </>
