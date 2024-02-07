@@ -2,7 +2,7 @@ name: Periodic URL Request
 
 on:
   schedule:
-    - cron: '*/10 7-18 * * *'
+    - cron: '*/10 5-16 * * *'
 
 jobs:
   make_request:
