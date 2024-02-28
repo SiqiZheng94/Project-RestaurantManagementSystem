@@ -13,8 +13,8 @@ export default function Home(){
     return(
         <div className="home-container">
             <Typography.Title level={1} style={{
-                fontFamily: "cursive", // 选择漂亮的字体
-                fontSize: "7rem", // 增加字体大小
+                fontFamily: "cursive",
+                fontSize: "7rem",
                 color: "#fff"
             }}>Welcome!</Typography.Title>
             <div>
