@@ -1,4 +1,4 @@
-# Restaurant Management App 🍣🍙🍘🍥🍚
+# Restaurant Management App 🍣
 
 ## Features
 
