@@ -1,0 +1,14 @@
+name: Periodic URL Request
+
+on:
+  schedule:
+    - cron: '*/10 6-18 * * 1-5'
+
+jobs:
+  make_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Curl request
+        run: |
+          curl -X POST https://restaurant-ordering-system-4vq0.onrender.com
