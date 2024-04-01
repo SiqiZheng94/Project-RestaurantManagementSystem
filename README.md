@@ -37,5 +37,5 @@ To set up the project locally, follow these steps:
 3. Configure the backend environment.
 4. Install the frontend dependencies and run the React application.
 
-You can also visit https://restaurant-ordering-system-4vq0.onrender.com and try it yourself.
+You can also go to https://restaurant-ordering-system-4vq0.onrender.com and try it yourself. Getting the server up and running will take a few minutes.
 
