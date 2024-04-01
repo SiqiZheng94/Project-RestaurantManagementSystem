@@ -29,3 +29,13 @@
 
 - **Render:** Cloud platform used for hosting and deploying web applications.
 
+## Getting Started
+To set up the project locally, follow these steps:
+
+1. Clone the repository.
+2. Set up the MongoDB database.
+3. Configure the backend environment.
+4. Install the frontend dependencies and run the React application.
+
+You can also visit https://restaurant-ordering-system-4vq0.onrender.com and try it yourself.
+
